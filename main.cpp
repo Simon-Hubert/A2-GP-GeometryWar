@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <iostream>
+#include "Ball.h"
 
 constexpr float cubeSpeed = 500.f;
 
@@ -18,6 +19,8 @@ int main()
 	rectangle.setSize(sf::Vector2f(128, 128));
 
 	sf::Clock frameClock;
+	Ball ball;
+	ball.InitBall();
 
 	while (window.isOpen())
 	{
@@ -39,10 +42,11 @@ int main()
 		}
 
 		float deltaTime = frameClock.restart().asSeconds();
-		std::cout << 1.f / deltaTime << " FPS" << std::endl;
+		//std::cout << 1.f / deltaTime << " FPS" << std::endl;
+		std::cout << "vitesse: " << ball.speed << std::endl;
 
 		// Logique
-		sf::Vector2f pos = rectangle.getPosition();
+		/*sf::Vector2f pos = rectangle.getPosition();
 		
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 			pos.x = pos.x - deltaTime * cubeSpeed;
@@ -56,7 +60,8 @@ int main()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 			pos.y = pos.y + deltaTime * cubeSpeed;
 
-		rectangle.setPosition(pos);
+		rectangle.setPosition(pos);*/
+		ball.MoveBall(deltaTime);
 
 		// Affichage
 		
@@ -64,7 +69,9 @@ int main()
 		window.clear();
 
 		// Tout le rendu va se dérouler ici
-		window.draw(rectangle);
+		//window.draw(rectangle);
+		ball.DrawBall(window);
+
 
 		// On présente la fenêtre sur l'écran
 		window.display();
