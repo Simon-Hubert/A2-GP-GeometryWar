@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <iostream>
+#include "Player.h"
 
 constexpr float cubeSpeed = 500.f;
 
@@ -11,11 +12,10 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Geometry Wars");
 	window.setVerticalSyncEnabled(true);
 
+	Player player;
 	// Début de la boucle de jeu
-	sf::RectangleShape rectangle;
-	rectangle.setFillColor(sf::Color::Red);
-	rectangle.setPosition(640, 360);
-	rectangle.setSize(sf::Vector2f(128, 128));
+	player.Init();
+	
 
 	sf::Clock frameClock;
 
@@ -39,24 +39,10 @@ int main()
 		}
 
 		float deltaTime = frameClock.restart().asSeconds();
-		std::cout << 1.f / deltaTime << " FPS" << std::endl;
+		//std::cout << 1.f / deltaTime << " FPS" << std::endl;
 
 		// Logique
-		sf::Vector2f pos = rectangle.getPosition();
-		
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-			pos.x = pos.x - deltaTime * cubeSpeed;
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			pos.x = pos.x + deltaTime * cubeSpeed;
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-			pos.y = pos.y - deltaTime * cubeSpeed;
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-			pos.y = pos.y + deltaTime * cubeSpeed;
-
-		rectangle.setPosition(pos);
+		player.UpdateLogic(deltaTime);
 
 		// Affichage
 		
@@ -64,7 +50,7 @@ int main()
 		window.clear();
 
 		// Tout le rendu va se dérouler ici
-		window.draw(rectangle);
+		player.Draw(window);
 
 		// On présente la fenêtre sur l'écran
 		window.display();
