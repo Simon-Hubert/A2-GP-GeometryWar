@@ -46,21 +46,6 @@ int main()
 		std::cout << "vitesse: " << ball.speed << std::endl;
 
 		// Logique
-		/*sf::Vector2f pos = rectangle.getPosition();
-		
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-			pos.x = pos.x - deltaTime * cubeSpeed;
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			pos.x = pos.x + deltaTime * cubeSpeed;
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-			pos.y = pos.y - deltaTime * cubeSpeed;
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-			pos.y = pos.y + deltaTime * cubeSpeed;
-
-		rectangle.setPosition(pos);*/
 		ball.MoveBall(deltaTime);
 
 		// Affichage
