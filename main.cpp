@@ -2,9 +2,12 @@
 #include <SFML/Window.hpp>
 #include <iostream>
 #include "Ball.h"
+#include "Bounce.h"
+#include "Collision.h"
+
+using namespace Collision;
 
 constexpr float cubeSpeed = 500.f;
-
 int main()
 {
 	// Initialisation
@@ -20,7 +23,10 @@ int main()
 
 	sf::Clock frameClock;
 	Ball ball;
+	Bounce bounce, bounce2;
 	ball.InitBall();
+	bounce.InitBounce(sf::Color::Magenta, sf::Vector2f(620, 600));
+	bounce2.InitBounce(sf::Color::Blue, sf::Vector2f(500, 660));
 
 	while (window.isOpen())
 	{
@@ -43,10 +49,14 @@ int main()
 
 		float deltaTime = frameClock.restart().asSeconds();
 		//std::cout << 1.f / deltaTime << " FPS" << std::endl;
-		std::cout << "vitesse: " << ball.speed << std::endl;
 
 		// Logique
-		ball.MoveBall(deltaTime);
+		ball.MoveBall(deltaTime, Collision::CircleToCircle(ball.ball, bounce.bouncer));
+		ball.MoveBall(deltaTime, Collision::CircleToCircle(ball.ball, bounce2.bouncer));
+
+		std::cout << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.x << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.y << std::endl;
+		ball.BounceBall(bounce.Bouncing(Collision::CircleToCircle(ball.ball, bounce.bouncer)), .5f);
+		ball.BounceBall(bounce2.Bouncing(Collision::CircleToCircle(ball.ball, bounce2.bouncer)), .5f);
 
 		// Affichage
 		
@@ -56,7 +66,8 @@ int main()
 		// Tout le rendu va se dérouler ici
 		//window.draw(rectangle);
 		ball.DrawBall(window);
-
+		bounce.DrawBounce(window);
+		bounce2.DrawBounce(window);
 
 		// On présente la fenêtre sur l'écran
 		window.display();
