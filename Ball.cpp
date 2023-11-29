@@ -44,6 +44,7 @@ void Ball::BounceBall(Collision::CollisionInfo info, float mulV)
 		float angle = atan2(info.normal.y, info.normal.x) + angleB;
 		speed.x = -magSpeed* cos(angle);
 		speed.y = magSpeed* sin(angle);
+		speed += info.penetration * info.normal;
 		pos.x = pos.x + speed.x;
 		pos.y = pos.y + speed.y;
 		ball.setPosition(pos);

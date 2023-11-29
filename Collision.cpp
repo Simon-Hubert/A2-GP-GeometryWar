@@ -11,10 +11,12 @@ CollisionInfo Collision::CircleToCircle(sf::CircleShape circle1, sf::CircleShape
 		info.isColliding = true;
 		info.normal= sf::Vector2f(circle1.getPosition().x - circle2.getPosition().x, circle1.getPosition().y - circle2.getPosition().y);
 		info.normal = info.normal / sqrt(info.normal.x * info.normal.x + info.normal.y * info.normal.y); // permet au vecteur d'indiquer une direction et une intensité 1
+		info.penetration = circle1.getRadius() + circle2.getRadius() - m;
 		return info;
 	}
 	info.isColliding = false;
 	info.normal = sf::Vector2f(0, 0);
+	info.penetration = 0;
 	return info;
 }
 

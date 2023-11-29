@@ -7,6 +7,7 @@ namespace Collision
 	{
 		bool isColliding;
 		sf::Vector2f normal;
+		float penetration;
 	};
 	CollisionInfo CircleToCircle(sf::CircleShape circle1, sf::CircleShape circle2);
 	bool CircleToRectangle(sf::CircleShape circle, sf::RectangleShape& rectangle);
