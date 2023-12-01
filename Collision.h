@@ -11,6 +11,6 @@ namespace Collision
 		float penetration;
 	};
 	CollisionInfo CircleToCircle(sf::CircleShape circle1, sf::CircleShape circle2);
+	CollisionInfo CircleToRectFrames(sf::CircleShape circle, sf::Vector2f pos, sf::RectangleShape rect);
 	CollisionInfo CircleToRectangle(sf::CircleShape circle, sf::RectangleShape rectangle);
-	bool RectangleToRectangle(sf::RectangleShape& rectangle1, sf::RectangleShape& rectangle2);
 }

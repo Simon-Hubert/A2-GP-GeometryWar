@@ -17,8 +17,8 @@ void Ball::MoveBall(float deltaTime, Collision::CollisionInfo cannotMove)
 	if (!cannotMove.isColliding)
 	{
 		speed.y = speed.y + (deltaTime * gravity);
-		pos.y = pos.y + speed.y;
-		pos.x = pos.x + speed.x;
+		pos.y = pos.y + (speed.y * deltaTime);
+		pos.x = pos.x + (speed.x * deltaTime);
 	}
 	else {
 		//speed = 0;
@@ -34,7 +34,7 @@ void Ball::DrawBall(sf::RenderWindow& window)
 		window.draw(ball);
 }
 
-void Ball::BounceBall(Collision::CollisionInfo info, float mulV)
+void Ball::BounceBall(Collision::CollisionInfo info, float mulV, float deltaTime)
 {
 		if (info.isColliding)
 	{
@@ -44,9 +44,9 @@ void Ball::BounceBall(Collision::CollisionInfo info, float mulV)
 		float angle = atan2(info.normal.y, info.normal.x) + angleB;
 		speed.x = -magSpeed* cos(angle);
 		speed.y = magSpeed* sin(angle);
-		speed += info.penetration * info.normal;
-		pos.x = pos.x + speed.x;
-		pos.y = pos.y + speed.y;
+		//speed += info.penetration * info.normal;
+		pos.x = pos.x + speed.x * deltaTime;
+		pos.y = pos.y + speed.y * deltaTime;
 		ball.setPosition(pos);
 	}
 	else

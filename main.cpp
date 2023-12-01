@@ -25,7 +25,7 @@ int main()
 	ball.InitBall();
 	bounce.InitBounce(sf::Color::Magenta, sf::Vector2f(620, 600));
 	bounce2.InitBounce(sf::Color::Blue, sf::Vector2f(400, 460));
-	wall.InitWall(sf::Color::White, sf::Vector2f(600, 400), sf::Vector2f(120, 50));
+	wall.InitWall(sf::Color::White, sf::Vector2f(600, 400), sf::Vector2f(100, 50));
 
 
 	while (window.isOpen())
@@ -51,14 +51,16 @@ int main()
 		//std::cout << 1.f / deltaTime << " FPS" << std::endl;
 
 		// Logique
+		//std::cout << ball.pos.x << ball.pos.y << "\n";
+
 		ball.MoveBall(deltaTime, Collision::CircleToCircle(ball.ball, bounce.bouncer));
 		ball.MoveBall(deltaTime, Collision::CircleToCircle(ball.ball, bounce2.bouncer));
-		ball.MoveBall(deltaTime, Collision::CircleToRectangle(ball.ball, wall.wall));
+		ball.MoveBall(deltaTime, Collision::CircleToRectFrames(ball.ball, ball.pos + ball.speed, wall.wall));
 
 		std::cout << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.x << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.y << std::endl;
-		ball.BounceBall(bounce.Bouncing(Collision::CircleToCircle(ball.ball, bounce.bouncer)), .5f);
-		ball.BounceBall(bounce2.Bouncing(Collision::CircleToCircle(ball.ball, bounce2.bouncer)), .5f);
-		ball.BounceBall(Collision::CircleToRectangle(ball.ball, wall.wall), .2f);
+		ball.BounceBall(bounce.Bouncing(Collision::CircleToCircle(ball.ball, bounce.bouncer)), .5f, deltaTime);
+		ball.BounceBall(bounce2.Bouncing(Collision::CircleToCircle(ball.ball, bounce2.bouncer)), .5f, deltaTime);
+		ball.BounceBall(Collision::CircleToRectFrames(ball.ball, ball.pos + ball.speed, wall.wall), .2f, deltaTime);
 
 		// Affichage
 		

@@ -17,6 +17,6 @@ class Ball
 		void MoveBall(float deltaTime, Collision::CollisionInfo canMove);
 		void DrawBall(sf::RenderWindow& window);
 		void UpdateBall();
-		void BounceBall(Collision::CollisionInfo info, float mulV);
+		void BounceBall(Collision::CollisionInfo info, float mulV, float deltaTime);
 };
 

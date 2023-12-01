@@ -22,6 +22,15 @@ CollisionInfo Collision::CircleToCircle(sf::CircleShape circle1, sf::CircleShape
 	return info;
 }
 
+CollisionInfo Collision::CircleToRectFrames(sf::CircleShape circle, sf::Vector2f pos, sf::RectangleShape rect)
+{
+	sf::CircleShape ballClone = circle;
+	ballClone.setPosition(pos);
+	return CircleToRectangle(ballClone, rect);
+}
+
+
+
 CollisionInfo Collision::CircleToRectangle(sf::CircleShape circle, sf::RectangleShape rectangle)
 {
 	CollisionInfo info;
@@ -41,12 +50,12 @@ CollisionInfo Collision::CircleToRectangle(sf::CircleShape circle, sf::Rectangle
 	sf::Vector2f bl = { pos.x - (sizeRect.x/2), pos.y + (sizeRect.y / 2) };
 
 	//est ce que C est dans mon rectangle ?
-	if (cR.x - r >= tl.x &&
-		cR.x + r <= br.x &&
-		cR.y - r >= tl.y &&
-		cR.y + r <= br.y)
+	if (cR.x  >= tl.x - r &&
+		cR.x  <= br.x + r &&
+		cR.y  >= tl.y - r &&
+		cR.y  <= br.y + r)
 	{
-		//std::cout << "collision !!!!!!!!!\n";
+		std::cout << "collision !!!!!!!!!\n";
 		info.isColliding = true;
 		bool a = cR.x >= tr.x;
 		bool b = cR.y >= tr.y;
@@ -69,7 +78,7 @@ CollisionInfo Collision::CircleToRectangle(sf::CircleShape circle, sf::Rectangle
 			info.penetration = penD/14.f;
 			info.normal = info.normal * 0.7071f;
 		}
-		std::cout << info.penetration << "\n";
+		//std::cout << info.penetration << "\n";
 	}
 	return info;
 }
