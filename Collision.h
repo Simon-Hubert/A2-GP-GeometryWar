@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <iostream>
 #pragma once
 namespace Collision
 {
@@ -10,6 +11,6 @@ namespace Collision
 		float penetration;
 	};
 	CollisionInfo CircleToCircle(sf::CircleShape circle1, sf::CircleShape circle2);
-	bool CircleToRectangle(sf::CircleShape circle, sf::RectangleShape& rectangle);
+	CollisionInfo CircleToRectangle(sf::CircleShape circle, sf::RectangleShape rectangle);
 	bool RectangleToRectangle(sf::RectangleShape& rectangle1, sf::RectangleShape& rectangle2);
 }

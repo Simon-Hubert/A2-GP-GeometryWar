@@ -2,12 +2,12 @@
 
 void Ball::InitBall()
 {
-	int radius = 5;
+	int radius = 25;
 	ball.setFillColor(sf::Color::Green);
 	ball.setPosition(600, 200);
 	ball.setRadius(radius);
 	ball.setOrigin(radius, radius);
-	speed.y = 1;
+	//speed.y = 1;
 }
 
 void Ball::MoveBall(float deltaTime, Collision::CollisionInfo cannotMove)
@@ -16,7 +16,7 @@ void Ball::MoveBall(float deltaTime, Collision::CollisionInfo cannotMove)
 	pos = ball.getPosition();
 	if (!cannotMove.isColliding)
 	{
-		speed.y = speed.y; //+ (deltaTime * gravity);
+		speed.y = speed.y + (deltaTime * gravity);
 		pos.y = pos.y + speed.y;
 		pos.x = pos.x + speed.x;
 	}
