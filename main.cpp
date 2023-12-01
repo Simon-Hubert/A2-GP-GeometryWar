@@ -14,7 +14,7 @@ int main()
 	// Initialisation
 
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Geometry Wars");
-	window.setVerticalSyncEnabled(true);
+	window.setVerticalSyncEnabled(false);
 
 	// Début de la boucle de jeu
 
@@ -52,15 +52,13 @@ int main()
 
 		// Logique
 		//std::cout << ball.pos.x << ball.pos.y << "\n";
-
-		ball.MoveBall(deltaTime, Collision::CircleToCircle(ball.ball, bounce.bouncer));
-		ball.MoveBall(deltaTime, Collision::CircleToCircle(ball.ball, bounce2.bouncer));
-		ball.MoveBall(deltaTime, Collision::CircleToRectFrames(ball.ball, ball.pos + ball.speed, wall.wall));
-
+		
 		std::cout << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.x << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.y << std::endl;
 		ball.BounceBall(bounce.Bouncing(Collision::CircleToCircle(ball.ball, bounce.bouncer)), .5f, deltaTime);
 		ball.BounceBall(bounce2.Bouncing(Collision::CircleToCircle(ball.ball, bounce2.bouncer)), .5f, deltaTime);
-		ball.BounceBall(Collision::CircleToRectFrames(ball.ball, ball.pos + ball.speed, wall.wall), .2f, deltaTime);
+		ball.BounceBall(Collision::CircleToRectangle(ball.ball, wall.wall), .5f, deltaTime);
+
+		ball.MoveBall(deltaTime);
 
 		// Affichage
 		
