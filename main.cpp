@@ -1,21 +1,32 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include "Player.h"
 #include <iostream>
+#include "Ball.h"
+#include "Bounce.h"
+#include "Obstacle.h"
+#include "Collision.h"
+
+using namespace Collision;
 
 constexpr float cubeSpeed = 500.f;
-
 int main()
 {
 	// Initialisation
 
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Geometry Wars");
 	window.setVerticalSyncEnabled(true);
-	Player player;
 
-	player.Init();
+	// Début de la boucle de jeu
 
 	sf::Clock frameClock;
+	Ball ball;
+	Bounce bounce, bounce2;
+	Obstacle wall;
+	ball.InitBall();
+	bounce.InitBounce(sf::Color::Magenta, sf::Vector2f(620, 600));
+	bounce2.InitBounce(sf::Color::Blue, sf::Vector2f(400, 460));
+	wall.InitWall(sf::Color::White, sf::Vector2f(600, 400), sf::Vector2f(100, 50));
+
 
 	while (window.isOpen())
 	{
@@ -37,18 +48,31 @@ int main()
 		}
 
 		float deltaTime = frameClock.restart().asSeconds();
+		//std::cout << 1.f / deltaTime << " FPS" << std::endl;
 
 		// Logique
-		player.Update(deltaTime);
+		//std::cout << ball.pos.x << ball.pos.y << "\n";
 
+		ball.MoveBall(deltaTime, Collision::CircleToCircle(ball.ball, bounce.bouncer));
+		ball.MoveBall(deltaTime, Collision::CircleToCircle(ball.ball, bounce2.bouncer));
+		ball.MoveBall(deltaTime, Collision::CircleToRectFrames(ball.ball, ball.pos + ball.speed, wall.wall));
 
+		std::cout << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.x << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.y << std::endl;
+		ball.BounceBall(bounce.Bouncing(Collision::CircleToCircle(ball.ball, bounce.bouncer)), .5f, deltaTime);
+		ball.BounceBall(bounce2.Bouncing(Collision::CircleToCircle(ball.ball, bounce2.bouncer)), .5f, deltaTime);
+		ball.BounceBall(Collision::CircleToRectFrames(ball.ball, ball.pos + ball.speed, wall.wall), .2f, deltaTime);
 
 		// Affichage
+		
 		// Remise au noir de toute la fenêtre
 		window.clear();
 
 		// Tout le rendu va se dérouler ici
-		player.Draw(window);
+		//window.draw(rectangle);
+		ball.DrawBall(window);
+		bounce.DrawBounce(window);
+		bounce2.DrawBounce(window);
+		wall.DrawWall(window);
 
 		// On présente la fenêtre sur l'écran
 		window.display();
