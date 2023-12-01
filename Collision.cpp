@@ -68,17 +68,18 @@ CollisionInfo Collision::CircleToRectangle(sf::CircleShape circle, sf::Rectangle
 		info.normal.y = d ? -1 : 0;
 		// normaliser la normale
 		//std::cout << info.normal.x <<" "<<info.normal.y << "\n";
-		float penV = r + sizeRect.x / 2 - sqrt((cR.x - pos.x) * (cR.x - pos.x) + (cR.y - pos.y) * (cR.y - pos.y));
-		float penH = r + sizeRect.y / 2 - sqrt((cR.x - pos.x) * (cR.x - pos.x) + (cR.y - pos.y) * (cR.y - pos.y));
+		float penV = r + (sizeRect.x/ 2.f) - abs(cR.x - pos.x);
+		float penH = r + (sizeRect.y/ 2.f) - abs(cR.y - pos.y);
 		float penD = penV + penH;
 
-		info.penetration = a || c ? penH/7.f : info.penetration;
-		info.penetration = b || d ? penV/7.f : info.penetration;
+		info.penetration = a || c ? penH : info.penetration;
+		info.penetration = b || d ? penV : info.penetration;
 		if ((a || c) && (b || d)) {
-			info.penetration = penD/14.f;
+			info.penetration = penD/2.f; // moyenne des 2 pénétrations
 			info.normal = info.normal * 0.7071f;
 		}
 		//std::cout << info.penetration << "\n";
+		info.penetration = 30;
 	}
 	return info;
 }

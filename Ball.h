@@ -8,13 +8,13 @@ using namespace Collision;
 
 class Ball
 {
-	float gravity = 9.81f;
+	float gravity = 9.81f ;
 	public:
 		sf::CircleShape ball;
 		sf::Vector2f pos;
 		sf::Vector2f speed = {0, 0};
 		void InitBall();
-		void MoveBall(float deltaTime, Collision::CollisionInfo canMove);
+		void MoveBall(float deltaTime);
 		void DrawBall(sf::RenderWindow& window);
 		void UpdateBall();
 		void BounceBall(Collision::CollisionInfo info, float mulV, float deltaTime);
