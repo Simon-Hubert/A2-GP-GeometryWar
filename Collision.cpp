@@ -79,6 +79,7 @@ CollisionInfo Collision::CircleToRectangle(sf::CircleShape circle, sf::Rectangle
 			info.normal = info.normal * 0.7071f;
 		}
 		//std::cout << info.penetration << "\n";
+		info.penetration = 30;
 	}
 	return info;
 }
