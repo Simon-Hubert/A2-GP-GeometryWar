@@ -82,3 +82,44 @@ CollisionInfo Collision::CircleToRectangle(sf::CircleShape circle, sf::Rectangle
 	}
 	return info;
 }
+
+CollisionInfo Collision::CircleToOrientedRectangle(sf::CircleShape circle, sf::RectangleShape rectangle)
+{
+	sf::Vector2f posRect = rectangle.getPosition();
+	float rotation = rectangle.getRotation();
+
+	//Changement de Base pour se ramener à une situation AABB
+
+	//Translation
+	rectangle.move(-posRect);
+	circle.move(-posRect);
+
+	//Rotation
+	sf::Vector2f posCirc = circle.getPosition();
+	//Matrice de rotation en 2 Dim :
+	float x = posCirc.x * cos(-rotation) + posCirc.y * sin(-rotation);
+	float y = posCirc.y * cos(-rotation) - posCirc.x * sin(-rotation);
+	circle.setPosition(x, y);
+	rectangle.rotate(-rotation);
+
+	CollisionInfo info = CircleToRectangle(circle, rectangle);
+	//Changement inverse de Base
+
+	//Rotation
+	
+	rectangle.rotate(rotation);
+	posCirc.x = x * cos(rotation) + y * sin(rotation);
+	posCirc.y = y * cos(rotation) - x * sin(rotation);
+	x = info.normal.x;
+	y = info.normal.y;
+	info.normal.x = posCirc.x = x * cos(rotation) + y * sin(rotation);
+	info.normal.y = posCirc.y = y * cos(rotation) - x * sin(rotation);
+	circle.setPosition(posCirc);
+
+	//Traslation
+	rectangle.move(posRect);
+	circle.move(posRect);
+
+	return info;
+
+}

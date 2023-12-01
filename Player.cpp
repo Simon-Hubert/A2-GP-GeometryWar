@@ -20,3 +20,8 @@ void Player::Draw(sf::RenderWindow& window)
 	flipperDroit.Draw(window);
 	flipperGauche.Draw(window);
 }
+
+Flipper* Player::getFlipper(bool Droit)
+{
+	return Droit ? &flipperDroit : &flipperGauche;
+}

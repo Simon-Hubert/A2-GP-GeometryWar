@@ -5,7 +5,6 @@
 class Flipper
 {
 private:
-	sf::RectangleShape flipperShape;
 	float maxAngle = 30.f;
 	float baseAngle;
 	float speed = 180.f;
@@ -14,6 +13,7 @@ private:
 	sf::Vector2f size = {120, 30};
 
 public:
+	sf::RectangleShape flipperShape;
 	bool isDroit;
 	void Init(sf::Vector2f pos);
 	void Update(float deltaTime);

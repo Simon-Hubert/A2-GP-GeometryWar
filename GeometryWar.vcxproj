@@ -89,14 +89,18 @@
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Bounce.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Flipper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Bounce.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="Flipper.h" />
     <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

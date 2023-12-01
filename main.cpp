@@ -5,6 +5,7 @@
 #include "Bounce.h"
 #include "Obstacle.h"
 #include "Collision.h"
+#include "Player.h"
 
 using namespace Collision;
 
@@ -20,13 +21,9 @@ int main()
 
 	sf::Clock frameClock;
 	Ball ball;
-	Bounce bounce, bounce2;
-	Obstacle wall;
+	Player player;
+	player.Init();
 	ball.InitBall();
-	bounce.InitBounce(sf::Color::Magenta, sf::Vector2f(620, 600));
-	bounce2.InitBounce(sf::Color::Blue, sf::Vector2f(400, 460));
-	wall.InitWall(sf::Color::White, sf::Vector2f(600, 400), sf::Vector2f(100, 50));
-
 
 	while (window.isOpen())
 	{
@@ -52,16 +49,12 @@ int main()
 
 		// Logique
 		//std::cout << ball.pos.x << ball.pos.y << "\n";
+		player.Update(deltaTime);
+		ball.MoveBall(deltaTime, Collision::CircleToOrientedRectangle(ball.ball, player.getFlipper(true)->flipperShape));
+		ball.MoveBall(deltaTime, Collision::CircleToOrientedRectangle(ball.ball, player.getFlipper(false)->flipperShape));
 
-		ball.MoveBall(deltaTime, Collision::CircleToCircle(ball.ball, bounce.bouncer));
-		ball.MoveBall(deltaTime, Collision::CircleToCircle(ball.ball, bounce2.bouncer));
-		ball.MoveBall(deltaTime, Collision::CircleToRectFrames(ball.ball, ball.pos + ball.speed, wall.wall));
-
-		std::cout << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.x << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.y << std::endl;
-		ball.BounceBall(bounce.Bouncing(Collision::CircleToCircle(ball.ball, bounce.bouncer)), .5f, deltaTime);
-		ball.BounceBall(bounce2.Bouncing(Collision::CircleToCircle(ball.ball, bounce2.bouncer)), .5f, deltaTime);
-		ball.BounceBall(Collision::CircleToRectFrames(ball.ball, ball.pos + ball.speed, wall.wall), .2f, deltaTime);
-
+		ball.BounceBall(Collision::CircleToOrientedRectangle(ball.ball, player.getFlipper(false)->flipperShape), .5f, deltaTime);
+		ball.BounceBall(Collision::CircleToOrientedRectangle(ball.ball, player.getFlipper(true)->flipperShape), .5f, deltaTime);
 		// Affichage
 		
 		// Remise au noir de toute la fenêtre
@@ -69,10 +62,8 @@ int main()
 
 		// Tout le rendu va se dérouler ici
 		//window.draw(rectangle);
+		player.Draw(window);
 		ball.DrawBall(window);
-		bounce.DrawBounce(window);
-		bounce2.DrawBounce(window);
-		wall.DrawWall(window);
 
 		// On présente la fenêtre sur l'écran
 		window.display();
