@@ -17,6 +17,6 @@ public:
 	void Init();
 	void Update(float deltaTime);
 	void Draw(sf::RenderWindow& window);
-	Flipper* getFlipper(bool Droit);
+	Flipper getFlipper(bool Droit);
 };
 

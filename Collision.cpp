@@ -37,8 +37,12 @@ CollisionInfo Collision::CircleToRectangle(sf::CircleShape circle, sf::Rectangle
 	info.isColliding = false;
 	info.normal = {};
 	info.penetration = 0;
+
+
 	sf::Vector2f sizeRect = rectangle.getSize();
 	sf::Vector2f pos = rectangle.getPosition();
+
+	rectangle.setOrigin(sizeRect / 2.f);
 
 	sf::Vector2f cR = circle.getPosition();
 	float r = circle.getRadius();
@@ -57,10 +61,10 @@ CollisionInfo Collision::CircleToRectangle(sf::CircleShape circle, sf::Rectangle
 	{
 		std::cout << "collision !!!!!!!!!\n";
 		info.isColliding = true;
-		bool a = cR.x >= tr.x;
-		bool b = cR.y >= tr.y;
-		bool c = cR.x <= bl.x;
-		bool d = cR.y <= bl.y;
+		bool a = cR.x >= tr.x - r;
+		bool b = cR.y >= tr.y + r;
+		bool c = cR.x <= bl.x + r;
+		bool d = cR.y <= bl.y - r;
 		info.normal = { 0,0 };
 		info.normal.x = a ? 1 : 0;
 		info.normal.x = c ? -1 : 0;
@@ -74,10 +78,10 @@ CollisionInfo Collision::CircleToRectangle(sf::CircleShape circle, sf::Rectangle
 
 		info.penetration = a || c ? penH : info.penetration;
 		info.penetration = b || d ? penV : info.penetration;
-		if ((a || c) && (b || d)) {
-			info.penetration = penD/2.f; // moyenne des 2 pénétrations
-			info.normal = info.normal * 0.7071f;
-		}
+		//if ((a || c) && (b || d)) {
+		//	info.penetration = penD/2.f; // moyenne des 2 pénétrations
+		//	info.normal = info.normal * 0.7071f;
+		//}
 		//std::cout << info.penetration << "\n";
 		info.penetration = 30;
 	}
@@ -88,6 +92,8 @@ CollisionInfo Collision::CircleToOrientedRectangle(sf::CircleShape circle, sf::R
 {
 	sf::Vector2f posRect = rectangle.getPosition();
 	float rotation = rectangle.getRotation();
+	rotation = rotation >= 180 ? rotation - 360 : rotation;
+	rotation = 6.28318530718f * rotation/360.f;
 
 	//Changement de Base pour se ramener à une situation AABB
 
@@ -98,28 +104,20 @@ CollisionInfo Collision::CircleToOrientedRectangle(sf::CircleShape circle, sf::R
 	//Rotation
 	sf::Vector2f posCirc = circle.getPosition();
 	//Matrice de rotation en 2 Dim :
-	float x = posCirc.x * cos(-rotation) + posCirc.y * sin(-rotation);
-	float y = posCirc.y * cos(-rotation) - posCirc.x * sin(-rotation);
+	float x = posCirc.x * cos(-rotation) - posCirc.y * sin(-rotation);
+	float y = posCirc.x * sin(-rotation) + posCirc.y * cos(-rotation);
 	circle.setPosition(x, y);
 	rectangle.rotate(-rotation);
 
 	CollisionInfo info = CircleToRectangle(circle, rectangle);
-	//Changement inverse de Base
 
-	//Rotation
-	
-	rectangle.rotate(rotation);
-	posCirc.x = x * cos(rotation) + y * sin(rotation);
-	posCirc.y = y * cos(rotation) - x * sin(rotation);
 	x = info.normal.x;
 	y = info.normal.y;
-	info.normal.x = posCirc.x = x * cos(rotation) + y * sin(rotation);
-	info.normal.y = posCirc.y = y * cos(rotation) - x * sin(rotation);
-	circle.setPosition(posCirc);
+	std::cout << info.normal.x << " "<< info.normal.y << "\n";
+	info.normal.x = x * cos(rotation) - y * sin(rotation);
+	info.normal.y = x * sin(rotation) + y * cos(rotation);
+	std::cout << info.normal.x << " "<< info.normal.y << "\n";
 
-	//Traslation
-	rectangle.move(posRect);
-	circle.move(posRect);
 
 	return info;
 

@@ -5,6 +5,7 @@
 #include "Bounce.h"
 #include "Obstacle.h"
 #include "Collision.h"
+#include "Player.h"
 
 using namespace Collision;
 
@@ -20,12 +21,9 @@ int main()
 
 	sf::Clock frameClock;
 	Ball ball;
-	Bounce bounce, bounce2;
-	Obstacle wall;
+	Player player;
 	ball.InitBall();
-	bounce.InitBounce(sf::Color::Magenta, sf::Vector2f(620, 600));
-	bounce2.InitBounce(sf::Color::Blue, sf::Vector2f(400, 460));
-	wall.InitWall(sf::Color::White, sf::Vector2f(600, 400), sf::Vector2f(100, 50));
+	player.Init();
 
 
 	while (window.isOpen())
@@ -53,10 +51,11 @@ int main()
 		// Logique
 		//std::cout << ball.pos.x << ball.pos.y << "\n";
 		
-		std::cout << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.x << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.y << std::endl;
-		ball.BounceBall(bounce.Bouncing(Collision::CircleToCircle(ball.ball, bounce.bouncer)), .5f, deltaTime);
-		ball.BounceBall(bounce2.Bouncing(Collision::CircleToCircle(ball.ball, bounce2.bouncer)), .5f, deltaTime);
-		ball.BounceBall(Collision::CircleToRectangle(ball.ball, wall.wall), .5f, deltaTime);
+		//std::cout << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.x << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.y << std::endl;
+		player.Update(deltaTime);
+		ball.UpdateBall(deltaTime);
+		ball.BounceBall(Collision::CircleToOrientedRectangle(ball.ball, player.getFlipper(true).flipperShape),.5f,deltaTime);
+		ball.BounceBall(Collision::CircleToOrientedRectangle(ball.ball, player.getFlipper(false).flipperShape),.5f,deltaTime);
 
 		ball.MoveBall(deltaTime);
 
@@ -68,10 +67,7 @@ int main()
 		// Tout le rendu va se dérouler ici
 		//window.draw(rectangle);
 		ball.DrawBall(window);
-		bounce.DrawBounce(window);
-		bounce2.DrawBounce(window);
-		wall.DrawWall(window);
-
+		player.Draw(window);
 		// On présente la fenêtre sur l'écran
 		window.display();
 	}
