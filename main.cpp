@@ -5,6 +5,7 @@
 #include "Bounce.h"
 #include "Obstacle.h"
 #include "Collision.h"
+#include "PowerUp.h"
 
 using namespace Collision;
 
@@ -17,15 +18,20 @@ int main()
 	window.setVerticalSyncEnabled(true);
 
 	// Début de la boucle de jeu
-
+	srand(time(NULL));
+	float chrono = 0;
+	float chronokill = 0;
+	bool isItem = false;
+	sf::Time time;
 	sf::Clock frameClock;
 	Ball ball;
 	Bounce bounce, bounce2;
 	Obstacle wall;
+	Item item;
 	ball.InitBall();
 	bounce.InitBounce(sf::Color::Magenta, sf::Vector2f(620, 600));
 	bounce2.InitBounce(sf::Color::Blue, sf::Vector2f(400, 460));
-	wall.InitWall(sf::Color::White, sf::Vector2f(600, 400), sf::Vector2f(120, 50));
+	wall.InitWall(sf::Color::White, sf::Vector2f(600, 700), sf::Vector2f(120, 50));
 
 
 	while (window.isOpen())
@@ -60,6 +66,20 @@ int main()
 		ball.BounceBall(bounce2.Bouncing(Collision::CircleToCircle(ball.ball, bounce2.bouncer)), .5f);
 		ball.BounceBall(Collision::CircleToRectangle(ball.ball, wall.wall), .2f);
 
+		chrono += deltaTime;
+		if (chrono >= 1 && isItem == false) {
+			std::cout << "1 seconde" << std::endl;
+			item.CallPowerUp(&isItem);
+			chrono = 0;
+		}
+		if (isItem == true) {
+			chronokill += deltaTime;
+			if (chronokill >= 3) {
+				item.DestroyItem(&isItem);
+				chrono = 0;
+				chronokill = 0;
+			}
+		}
 		// Affichage
 		
 		// Remise au noir de toute la fenêtre
@@ -71,6 +91,7 @@ int main()
 		bounce.DrawBounce(window);
 		bounce2.DrawBounce(window);
 		wall.DrawWall(window);
+		item.DrawItem(window);
 
 		// On présente la fenêtre sur l'écran
 		window.display();
