@@ -3,18 +3,19 @@
 #pragma once
 class Menu
 {
-public:
-	sf::Font font;
-	bool select;
-	bool startGame;
-	sf::RectangleShape START;
-	sf::Text startText;
-	sf::RectangleShape QUIT;
-	sf::Text quitText;
-	void InitMenu();
-	void Start(bool select);
-	bool Controller();
-	void Selection();
-	void DrawMenu(sf::RenderWindow& window);
+	private:
+		sf::RectangleShape START;
+		sf::Text startText;
+		sf::RectangleShape QUIT;
+		sf::Text quitText;
+		sf::Font font;
+		bool select;
+		bool startGame;
+		void Selection();
+
+	public:
+		void InitMenu();
+		bool Controller();
+		void DrawMenu(sf::RenderWindow& window);
 };
 
