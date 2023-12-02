@@ -25,7 +25,7 @@ int main()
 	ball.InitBall();
 	bounce.InitBounce(sf::Color::Magenta, sf::Vector2f(620, 600));
 	bounce2.InitBounce(sf::Color::Blue, sf::Vector2f(400, 460));
-	wall.InitWall(sf::Color::White, sf::Vector2f(600, 400), sf::Vector2f(100, 50));
+	wall.InitWall(sf::Color::White, sf::Vector2f(300, 400), sf::Vector2f(100, 50));
 
 
 	while (window.isOpen())

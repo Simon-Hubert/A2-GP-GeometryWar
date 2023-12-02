@@ -12,5 +12,6 @@ class Bounce
 	void InitBounce(sf::Color color, sf::Vector2f pos);
 	CollisionInfo Bouncing(Collision::CollisionInfo info);
 	void DrawBounce(sf::RenderWindow& window);
+	void Animate();
 };
 
