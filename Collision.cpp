@@ -113,10 +113,10 @@ CollisionInfo Collision::CircleToOrientedRectangle(sf::CircleShape circle, sf::R
 
 	x = info.normal.x;
 	y = info.normal.y;
-	std::cout << info.normal.x << " "<< info.normal.y << "\n";
+	//std::cout << info.normal.x << " "<< info.normal.y << "\n";
 	info.normal.x = x * cos(rotation) - y * sin(rotation);
 	info.normal.y = x * sin(rotation) + y * cos(rotation);
-	std::cout << info.normal.x << " "<< info.normal.y << "\n";
+	//std::cout << info.normal.x << " "<< info.normal.y << "\n";
 
 
 	return info;

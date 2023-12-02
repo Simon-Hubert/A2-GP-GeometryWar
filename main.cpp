@@ -15,7 +15,7 @@ int main()
 	// Initialisation
 
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Geometry Wars");
-	window.setVerticalSyncEnabled(false);
+	window.setVerticalSyncEnabled(true);
 
 	// Début de la boucle de jeu
 

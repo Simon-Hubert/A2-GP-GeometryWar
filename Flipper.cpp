@@ -5,15 +5,17 @@ void Flipper::Init(sf::Vector2f pos)
 	float posX = pos.x - 120;
 	float originX = size.x / 4;
 	input = sf::Keyboard::Key::Q;
-
+	
 	if (isDroit) {
 		posX = pos.x + 120;
 		originX = 3 * size.x / 4;
 		input = sf::Keyboard::Key::D;
+		speed = -speed;
 	}
 	else {
-		maxAngle = 360 - maxAngle;
-		flipperShape.setRotation(359);
+		float temp = -maxAngle;
+		maxAngle = -baseAngle;
+		baseAngle = temp;
 	}
 
 	flipperShape.setFillColor(sf::Color::Red);
@@ -25,38 +27,18 @@ void Flipper::Init(sf::Vector2f pos)
 void Flipper::Update(float deltaTime)
 {
 	float angleFrac = deltaTime * speed;
-	if (sf::Keyboard::isKeyPressed(input)) {
-		if (isDroit)
-		{
-			flipperShape.rotate(angleFrac);
-			float angle = flipperShape.getRotation();
-			angle = angle > maxAngle ? maxAngle : angle;
-			flipperShape.setRotation(angle);
-		}
-		else
-		{
-			flipperShape.rotate(-angleFrac);
-			float angle = flipperShape.getRotation();
-			angle = angle < maxAngle ? maxAngle : angle;
-			flipperShape.setRotation(angle);
-		}
+	float rot = flipperShape.getRotation();
+	rot = rot >= 180 ? rot - 360 : rot;
+	angleFrac *= sf::Keyboard::isKeyPressed(input) ? -1.f : 1.f;
+	float newRot = rot + angleFrac;
+	//if (!isDroit) std::cout << newRot << "\n";
+	if (!(newRot <= maxAngle)) {
+		angleFrac = maxAngle - rot;
 	}
-	else {
-		if (isDroit)
-		{
-			float angle = flipperShape.getRotation();
-			angle - angleFrac < 0 ? angleFrac = angleFrac - abs(angle - angleFrac) : angleFrac;
-			flipperShape.rotate(-angleFrac);
-		}
-		else
-		{
-			float angle = flipperShape.getRotation();
-			if (angle != 0) {
-				angle + angleFrac > 360 ? angleFrac = 360 - angle : angleFrac;
-				flipperShape.rotate(angleFrac);
-			}
-		}
+	if (!(newRot >= baseAngle)) {
+		angleFrac = baseAngle - rot;
 	}
+	flipperShape.rotate(angleFrac);
 }
 
 void Flipper::Draw(sf::RenderWindow& window)

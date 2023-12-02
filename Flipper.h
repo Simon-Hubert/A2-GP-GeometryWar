@@ -1,13 +1,14 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <iostream>
 
 class Flipper
 {
 private:
-	float maxAngle = 30.f;
-	float baseAngle;
-	float speed = 180.f;
+	float maxAngle = 0.f;
+	float baseAngle = -30.f;
+	float speed = 360.f;
 
 	sf::Keyboard::Key input;
 	sf::Vector2f size = {120, 30};
