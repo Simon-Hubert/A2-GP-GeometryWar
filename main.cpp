@@ -21,7 +21,12 @@ int main()
 
 	sf::Clock frameClock;
 	Ball ball;
+	Bounce bounce1;
+	Obstacle wall;
 	Player player;
+	wall.InitWall(sf::Color::Red, sf::Vector2f(-550, 400), sf::Vector2f(150,50));
+	wall.wall.rotate(30);
+	bounce1.InitBounce(sf::Color::Red, sf::Vector2f(-600, 400));
 	ball.InitBall();
 	player.Init();
 
@@ -56,7 +61,9 @@ int main()
 		ball.UpdateBall(deltaTime);
 		ball.BounceBall(Collision::CircleToOrientedRectangle(ball.ball, player.getFlipper(true).flipperShape),.5f,deltaTime);
 		ball.BounceBall(Collision::CircleToOrientedRectangle(ball.ball, player.getFlipper(false).flipperShape),.5f,deltaTime);
+		ball.BounceBall(Collision::CircleToOrientedRectangle(ball.ball, wall.wall),.5f,deltaTime);
 
+		ball.BounceBall(Collision::CircleToCircle(ball.ball, bounce1.bouncer), .5f, deltaTime);
 		ball.MoveBall(deltaTime);
 
 		// Affichage
@@ -67,6 +74,8 @@ int main()
 		// Tout le rendu va se dérouler ici
 		//window.draw(rectangle);
 		ball.DrawBall(window);
+		wall.DrawWall(window);
+		bounce1.DrawBounce(window);
 		player.Draw(window);
 		// On présente la fenêtre sur l'écran
 		window.display();

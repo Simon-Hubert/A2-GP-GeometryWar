@@ -35,14 +35,25 @@ void Ball::BounceBall(Collision::CollisionInfo info, float mulV, float deltaTime
 {
 	if (info.isColliding)
 	{
+		//speed.y = speed.y - (deltaTime * gravity * 10.f);
 		float magSpeed = sqrt(speed.x * speed.x + speed.y * speed.y);
-		//magSpeed += mulV;
-		float angleB =  atan2(- info.normal.y, - info.normal.x) + atan2(speed.y, speed.x);
-		float angle = atan2(info.normal.y, info.normal.x) + angleB;
-		speed.x = -magSpeed* cos(angle);
-		speed.y = magSpeed* sin(angle);
+		float minSpeed = 150;
+		if (magSpeed * mulV < minSpeed) magSpeed = minSpeed;
+		else magSpeed *= mulV;
+		float angleB =  atan2(-info.normal.y, -info.normal.x) - atan2(speed.y, speed.x);
+		float angle = atan2(-info.normal.y,- info.normal.x) + angleB;
+		if (angleB == 0) {
+			speed = magSpeed * info.normal;
+		}
+		else {
+			speed.x = -magSpeed* cos(angle);
+			speed.y = magSpeed* sin(angle);
+		}
+		//speed = info.normal * magSpeed;
 		//sf::Vector2f dir = sf::Vector2f(-cos(angle), sin(angle));
-		speed += info.penetration * info.normal;
+		pos = pos + info.penetration * info.normal;
+		ball.setPosition(pos);
+		std::cout << info.normal.x << " "<< info.normal.y << "\n";
 
 		//devrais bloquer la gravité pendant x sec pour eviter les pb;
 

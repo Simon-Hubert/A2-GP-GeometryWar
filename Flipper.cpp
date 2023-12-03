@@ -31,7 +31,6 @@ void Flipper::Update(float deltaTime)
 	rot = rot >= 180 ? rot - 360 : rot;
 	angleFrac *= sf::Keyboard::isKeyPressed(input) ? -1.f : 1.f;
 	float newRot = rot + angleFrac;
-	//if (!isDroit) std::cout << newRot << "\n";
 	if (!(newRot <= maxAngle)) {
 		angleFrac = maxAngle - rot;
 	}
