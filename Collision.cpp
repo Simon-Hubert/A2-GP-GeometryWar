@@ -37,12 +37,15 @@ CollisionInfo Collision::CircleToRectangle(sf::CircleShape circle, sf::Rectangle
 	info.isColliding = false;
 	info.normal = { 0,0 };
 	info.penetration = 0;
+
 	float r = circle.getRadius();
 	circle.setOrigin(r, r);
+
 	sf::Vector2f rectOrigin = rectangle.getOrigin();
 	//std::cout << rectOrigin.x << " " << rectOrigin.y << "\n";
 	rectangle.setOrigin(0,0);
 	rectangle.move(-rectOrigin);
+
 	sf::Vector2f rectPos = rectangle.getPosition();
 	sf::Vector2f circlePos = circle.getPosition();
 	sf::Vector2f rectSize = rectangle.getSize();
@@ -145,7 +148,6 @@ CollisionInfo Collision::CircleToOrientedRectangle(sf::CircleShape circle, sf::R
 	//std::cout << x << " " << y << "\n";
 	rectangle.rotate(-rotation/deg2rad);
 
-
 	CollisionInfo info = CircleToRectangle(circle, rectangle);
 
 	x = info.normal.x;
@@ -157,5 +159,4 @@ CollisionInfo Collision::CircleToOrientedRectangle(sf::CircleShape circle, sf::R
 
 
 	return info;
-
 }

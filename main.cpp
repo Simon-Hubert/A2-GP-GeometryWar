@@ -23,12 +23,13 @@ int main()
 	Ball ball;
 	Bounce bounce1;
 	Obstacle wall;
-	Player player;
+	Player player1, player2;
 	wall.InitWall(sf::Color::Red, sf::Vector2f(-550, 400), sf::Vector2f(150,50));
 	wall.wall.rotate(30);
 	bounce1.InitBounce(sf::Color::Red, sf::Vector2f(-600, 400));
 	ball.InitBall();
-	player.Init();
+	player1.Init(sf::Vector2f(640, 600), true);
+	player2.Init(sf::Vector2f(640, 120), false);
 
 
 	while (window.isOpen())
@@ -57,10 +58,13 @@ int main()
 		//std::cout << ball.pos.x << ball.pos.y << "\n";
 		
 		//std::cout << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.x << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.y << std::endl;
-		player.Update(deltaTime);
 		ball.UpdateBall(deltaTime);
-		ball.BounceBall(Collision::CircleToOrientedRectangle(ball.ball, player.getFlipper(true).flipperShape),.5f,deltaTime);
-		ball.BounceBall(Collision::CircleToOrientedRectangle(ball.ball, player.getFlipper(false).flipperShape),.5f,deltaTime);
+		player1.Update(deltaTime);
+		player2.Update(deltaTime);
+		ball.BounceBall(Collision::CircleToOrientedRectangle(ball.ball, player2.getFlipper(true).flipperShape),2.f,deltaTime);
+		ball.BounceBall(Collision::CircleToOrientedRectangle(ball.ball, player2.getFlipper(false).flipperShape),2.f,deltaTime);
+		ball.BounceBall(Collision::CircleToOrientedRectangle(ball.ball, player1.getFlipper(true).flipperShape),2.f,deltaTime);
+		ball.BounceBall(Collision::CircleToOrientedRectangle(ball.ball, player1.getFlipper(false).flipperShape),2.f,deltaTime);
 		ball.BounceBall(Collision::CircleToOrientedRectangle(ball.ball, wall.wall),.5f,deltaTime);
 
 		ball.BounceBall(Collision::CircleToCircle(ball.ball, bounce1.bouncer), .5f, deltaTime);
@@ -76,7 +80,8 @@ int main()
 		ball.DrawBall(window);
 		wall.DrawWall(window);
 		bounce1.DrawBounce(window);
-		player.Draw(window);
+		player1.Draw(window);
+		player2.Draw(window);
 		// On présente la fenêtre sur l'écran
 		window.display();
 	}

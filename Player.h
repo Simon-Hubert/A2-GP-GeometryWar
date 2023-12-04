@@ -11,10 +11,10 @@ private:
 	bool flipGauche;
 	bool flipDroit;
 
-	sf::Vector2f position = { 640, 500 };
+	sf::Vector2f position;
 
 public:
-	void Init();
+	void Init(sf::Vector2f pos, bool player1);
 	void Update(float deltaTime);
 	void Draw(sf::RenderWindow& window);
 	Flipper getFlipper(bool Droit);

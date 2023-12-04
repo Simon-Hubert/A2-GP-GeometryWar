@@ -1,10 +1,11 @@
 #include "Ball.h"
 
+
 void Ball::InitBall()
 {
 	int radius = 25;
 	ball.setFillColor(sf::Color::Green);
-	ball.setPosition(550, 120);
+	ball.setPosition(600, 300);
 	ball.setRadius(radius);
 	ball.setOrigin(radius, radius);
 	//speed.y = 1;
@@ -38,6 +39,8 @@ void Ball::BounceBall(Collision::CollisionInfo info, float mulV, float deltaTime
 		//speed.y = speed.y - (deltaTime * gravity * 10.f);
 		float magSpeed = sqrt(speed.x * speed.x + speed.y * speed.y);
 		float minSpeed = 150;
+		float maxSpeed = 500;
+		magSpeed = magSpeed * mulV > maxSpeed ? maxSpeed : magSpeed * mulV;
 		if (magSpeed * mulV < minSpeed) magSpeed = minSpeed;
 		else magSpeed *= mulV;
 		float angleB =  atan2(-info.normal.y, -info.normal.x) - atan2(speed.y, speed.x);
@@ -54,17 +57,6 @@ void Ball::BounceBall(Collision::CollisionInfo info, float mulV, float deltaTime
 		pos = pos + info.penetration * info.normal;
 		ball.setPosition(pos);
 		std::cout << info.normal.x << " "<< info.normal.y << "\n";
-
-		//devrais bloquer la gravité pendant x sec pour eviter les pb;
-
-		//pos.x = pos.x + speed.x * deltaTime;
-		//pos.y = pos.y + speed.y * deltaTime;
-		//ball.setPosition(pos);
-	}
-	else
-	{
-		//pos.y = pos.y;
-		//ball.setPosition(pos);
 	}
 }
 
