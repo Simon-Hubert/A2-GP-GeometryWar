@@ -92,6 +92,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="PowerUp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
@@ -99,6 +100,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="PowerUp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
