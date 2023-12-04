@@ -1,7 +1,13 @@
 #include "Menu.h"
+#include <iostream>
 
 void Menu::InitMenu()
 {
+	radius = 25;
+	ball.setFillColor(sf::Color::White);
+	ball.setPosition(radius + 1, radius + 1);
+	ball.setRadius(radius);
+	ball.setOrigin(radius, radius);
 	font.loadFromFile("ARCADECLASSIC.ttf");
 	select = false;
 	START.setSize(sf::Vector2f(200, 50));
@@ -23,12 +29,53 @@ void Menu::InitMenu()
 	Controller();
 }
 
+void Menu::MoveBallMenu(float deltaTime)
+{
+	Trail();
+	bool a = ball.getPosition().x + radius < 1280;
+	bool b = ball.getPosition().x - radius > 0;
+	bool c = ball.getPosition().y + radius < 720;
+	bool d = ball.getPosition().y - radius > 0;
+	posBall = ball.getPosition();
+
+	if (a && b && c && d)
+	{
+		speedBall = speedBall;
+	}
+	else if (a && b && (!c || !d))
+	{
+		speedBall.y = -speedBall.y;
+	}
+	else if ((!a || !b) && c && d)
+	{
+		speedBall.x = -speedBall.x;
+	}
+	posBall.x = posBall.x + (speedBall.x * deltaTime);
+	posBall.y = posBall.y + (speedBall.y * deltaTime);
+	ball.setPosition(posBall);
+}
+
+void Menu::Trail()
+{
+	traine[index].setPosition(posBall);
+	traine[index].setRadius(radius);
+	traine[index].setFillColor(sf::Color(255, 255, 255, 150));
+	traine[index].setOrigin(radius, radius);
+	index = (index + 1) % 10;
+
+}
+
 void Menu::DrawMenu(sf::RenderWindow& window)
 {
 	sf::RenderWindow& w = window;
 	window.draw(START);
 	window.draw(startText);
 	window.draw(QUIT);
+	for (int i = 0; i < n; i++)
+	{
+		window.draw(traine[i]);
+	}
+	window.draw(ball);
 }
 
 bool Menu::Controller()

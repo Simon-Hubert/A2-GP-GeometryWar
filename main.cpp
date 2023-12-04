@@ -66,6 +66,7 @@ int main()
 		else 
 		{
 			isStarting = menu.Controller();
+			menu.MoveBallMenu(deltaTime);
 		}
 
 		// Affichage
