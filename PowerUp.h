@@ -12,10 +12,16 @@ class Item {
 	public : 
 		sf::CircleShape item;
 		sf::Vector2f pos;
+		float chrono = 0;
+		float chronokill = 0;
 		Item InitItem();
 		void DrawItem(sf::RenderWindow& window);
-		void CreatePowerUp();
-		void CallPowerUp(bool* isItem);
-		void DestroyItem(bool* isItem);
+		void CallPowerUp(bool &isItem, float deltaTime);
+		void DestroyItem(bool &isItem, float deltaTime, bool collision, Ball ball);
 		Item FalseInitItem();
+		void CollisionItem(Ball &ball);
+		void Powerup1(Ball &ball);
+		void Powerup2();
+		void TimeLife();
+		void Cooldown();
 };

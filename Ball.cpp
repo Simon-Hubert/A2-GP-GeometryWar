@@ -16,7 +16,7 @@ void Ball::MoveBall(float deltaTime, Collision::CollisionInfo cannotMove)
 	pos = ball.getPosition();
 	if (!cannotMove.isColliding)
 	{
-		speed.y = speed.y + (deltaTime * gravity);
+		speed.y = speed.y + (deltaTime * gravity/20.f);
 		pos.y = pos.y + speed.y;
 		pos.x = pos.x + speed.x;
 	}

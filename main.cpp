@@ -21,6 +21,9 @@ int main()
 	srand(time(NULL));
 	float chrono = 0;
 	float chronokill = 0;
+	// temps en seconde pour les deux prochaine variable
+	float PowerUpCooldown = 1.f;
+	float LifeTimePowerUp = 3.f;
 	bool isItem = false;
 	sf::Time time;
 	sf::Clock frameClock;
@@ -53,33 +56,43 @@ int main()
 			}
 		}
 
+
+
 		float deltaTime = frameClock.restart().asSeconds();
 		//std::cout << 1.f / deltaTime << " FPS" << std::endl;
 
+
+		item.CallPowerUp(isItem, deltaTime);
+		item.DestroyItem(isItem, deltaTime, Collision::CircleToCircle(ball.ball, item.item).isColliding, ball);
+
+
+		//chrono += deltaTime;
+		//if (chrono >= PowerUpCooldown && isItem == false) {
+		//	item.CallPowerUp(isItem);
+		//	chrono = 0;
+		//}
+		//if (isItem == true) {
+		//	chronokill += deltaTime;
+		//	if (Collision::CircleToCircle(ball.ball, item.item).isColliding == true) {
+		//		item.CollisionItem(Collision::CircleToCircle(ball.ball, item.item), ball);
+		//		item.DestroyItem(isItem);
+		//	}
+		//	if (chronokill >= LifeTimePowerUp) {
+		//		item.DestroyItem(isItem);
+		//		chrono = 0;
+		//		chronokill = 0;
+		//	}
+		//}
 		// Logique
 		ball.MoveBall(deltaTime, Collision::CircleToCircle(ball.ball, bounce.bouncer));
 		ball.MoveBall(deltaTime, Collision::CircleToCircle(ball.ball, bounce2.bouncer));
 		ball.MoveBall(deltaTime, Collision::CircleToRectangle(ball.ball, wall.wall));
 
-		std::cout << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.x << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.y << std::endl;
+		//std::cout << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.x << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.y << std::endl;
 		ball.BounceBall(bounce.Bouncing(Collision::CircleToCircle(ball.ball, bounce.bouncer)), .5f);
 		ball.BounceBall(bounce2.Bouncing(Collision::CircleToCircle(ball.ball, bounce2.bouncer)), .5f);
 		ball.BounceBall(Collision::CircleToRectangle(ball.ball, wall.wall), .2f);
 
-		chrono += deltaTime;
-		if (chrono >= 1 && isItem == false) {
-			std::cout << "1 seconde" << std::endl;
-			item.CallPowerUp(&isItem);
-			chrono = 0;
-		}
-		if (isItem == true) {
-			chronokill += deltaTime;
-			if (chronokill >= 3) {
-				item.DestroyItem(&isItem);
-				chrono = 0;
-				chronokill = 0;
-			}
-		}
 		// Affichage
 		
 		// Remise au noir de toute la fenêtre
