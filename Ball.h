@@ -9,8 +9,8 @@ using namespace Collision;
 
 class Ball
 {
-	float gravity = 9.81f ;
 	public:
+		float gravity = 9.81f ;
 		sf::CircleShape ball;
 		sf::Vector2f pos;
 		sf::Vector2f speed = {0, 0};

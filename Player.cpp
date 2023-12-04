@@ -8,7 +8,11 @@ void Player::Init(sf::Vector2f pos, bool player1)
 	flipperGauche.isDroit = false;
 	sf::Keyboard::Key inputA = sf::Keyboard::Key::Q;
 	sf::Keyboard::Key inputB = sf::Keyboard::Key::D;
+	flipperDroit.player1 = true;
+	flipperGauche.player1 = true;
 	if (!player1) {
+		flipperDroit.player1 = false;
+		flipperGauche.player1 = false;
 		float temp = -flipperDroit.maxAngle;
 		flipperDroit.maxAngle = -flipperDroit.baseAngle;
 		flipperGauche.maxAngle = -flipperDroit.baseAngle;
@@ -35,7 +39,7 @@ void Player::Draw(sf::RenderWindow& window)
 	flipperGauche.Draw(window);
 }
 
-Flipper Player::getFlipper(bool Droit)
+Flipper* Player::getFlipper(bool Droit)
 {
-	return Droit ? flipperDroit : flipperGauche;
+	return Droit ? &flipperDroit : &flipperGauche;
 }

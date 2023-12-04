@@ -24,17 +24,17 @@ void Menu::InitMenu()
 	QUIT.setOrigin(START.getSize().x / 2, START.getSize().y / 2);
 	QUIT.setOutlineThickness(5);
 	QUIT.setOutlineColor(sf::Color::White);
-	START.setPosition(1280/2, 300);
-	QUIT.setPosition(1280/2, 400);
+	START.setPosition(WINDOW_W/2, (WINDOW_H/2) - WINDOW_H / 20);
+	QUIT.setPosition(WINDOW_W/2, (WINDOW_H/2) + WINDOW_H/20);
 	Controller();
 }
 
 void Menu::MoveBallMenu(float deltaTime)
 {
 	Trail();
-	bool a = ball.getPosition().x + radius < 1280;
+	bool a = ball.getPosition().x + radius < WINDOW_W;
 	bool b = ball.getPosition().x - radius > 0;
-	bool c = ball.getPosition().y + radius < 720;
+	bool c = ball.getPosition().y + radius < WINDOW_H;
 	bool d = ball.getPosition().y - radius > 0;
 	posBall = ball.getPosition();
 

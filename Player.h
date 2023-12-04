@@ -17,6 +17,6 @@ public:
 	void Init(sf::Vector2f pos, bool player1);
 	void Update(float deltaTime);
 	void Draw(sf::RenderWindow& window);
-	Flipper getFlipper(bool Droit);
+	Flipper* getFlipper(bool Droit);
 };
 

@@ -89,17 +89,22 @@
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Bounce.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Flipper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="PowerUp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Bounce.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="const.h" />
+    <ClInclude Include="Flipper.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="PowerUp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

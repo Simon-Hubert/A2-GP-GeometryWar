@@ -10,6 +10,7 @@ private:
 	sf::Vector2f size = {120, 30};
 
 public:
+	bool player1;
 	float speed = 360.f;
 	float maxAngle = 0.f;
 	float baseAngle = -30.f;
