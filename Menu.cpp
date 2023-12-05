@@ -8,7 +8,7 @@ void Menu::InitMenu()
 	ball.setPosition(radius + 1, radius + 1);
 	ball.setRadius(radius);
 	ball.setOrigin(radius, radius);
-	font.loadFromFile("ARCADECLASSIC.ttf");
+	font.loadFromFile("../ARCADECLASSIC.ttf");
 	select = false;
 	START.setSize(sf::Vector2f(200, 50));
 	START.setOrigin(START.getSize().x / 2, START.getSize().y / 2);
@@ -16,9 +16,14 @@ void Menu::InitMenu()
 	startText.setFont(font);
 	startText.setString("START");
 	startText.setCharacterSize(48);
-	startText.setFillColor(sf::Color::Green);
+	startText.setFillColor(sf::Color::Black);
+	quitText.setFillColor(sf::Color::Green);
 	startText.setStyle(sf::Text::Bold);
-	startText.setPosition(400, 100);
+	quitText.setFont(font);
+	quitText.setString("QUIT");
+	quitText.setCharacterSize(48);
+	quitText.setFillColor(sf::Color::Black);
+	quitText.setStyle(sf::Text::Bold);
 	START.setOutlineColor(sf::Color::White);
 	QUIT.setSize(sf::Vector2f(200, 50));
 	QUIT.setOrigin(START.getSize().x / 2, START.getSize().y / 2);
@@ -26,6 +31,11 @@ void Menu::InitMenu()
 	QUIT.setOutlineColor(sf::Color::White);
 	START.setPosition(WINDOW_W/2, (WINDOW_H/2) - WINDOW_H / 20);
 	QUIT.setPosition(WINDOW_W/2, (WINDOW_H/2) + WINDOW_H/20);
+	startText.setOrigin(START.getOrigin().x, START.getOrigin().y);
+	startText.setPosition(START.getPosition().x + WINDOW_H / 25, START.getPosition().y - WINDOW_H / 100);
+	quitText.setOrigin(QUIT.getOrigin().x, QUIT.getOrigin().y);
+	quitText.setPosition(QUIT.getPosition().x + WINDOW_H / 25, QUIT.getPosition().y - WINDOW_H / 100);
+
 	Controller();
 }
 
@@ -69,8 +79,9 @@ void Menu::DrawMenu(sf::RenderWindow& window)
 {
 	sf::RenderWindow& w = window;
 	window.draw(START);
-	window.draw(startText);
 	window.draw(QUIT);
+	window.draw(startText);
+	window.draw(quitText);
 	for (int i = 0; i < n; i++)
 	{
 		window.draw(traine[i]);
@@ -111,6 +122,9 @@ void Menu::Selection()
 		QUIT.setOutlineThickness(5);
 		QUIT.setOutlineColor(sf::Color::White);
 		START.setFillColor(sf::Color::White);
+		startText.setFillColor(sf::Color::Black);
+		quitText.setFillColor(sf::Color::White);
+
 	}
 	else 
 	{
@@ -118,5 +132,7 @@ void Menu::Selection()
 		START.setOutlineThickness(5);
 		START.setOutlineColor(sf::Color::White);
 		QUIT.setFillColor(sf::Color::White);
+		startText.setFillColor(sf::Color::White);
+		quitText.setFillColor(sf::Color::Black);
 	}
 }
