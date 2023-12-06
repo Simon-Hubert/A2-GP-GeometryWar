@@ -9,6 +9,8 @@
 #include "Menu.h"
 #include "Player.h"
 #include "const.h"
+#include "GameManager.h"
+#include "PowerUp.h"
 
 using namespace Collision;
 constexpr float cubeSpeed = 500.f;
@@ -20,10 +22,15 @@ int main()
 	window.setVerticalSyncEnabled(true);
 
 	// Début de la boucle de jeu
+	GameManager manager;
+	manager.InitUI();
+	bool j1Won = false, j2Won = false;
 	bool isStarting = false;
 	bool downGravity = true;
 	Menu menu;
 	sf::Clock frameClock;
+	Item item;
+	bool isItemActive = false;
 	Ball ball;
 	Player player1, player2;
 	Bounce bounce1, bounce2, bounce3, bounce4;
@@ -118,6 +125,8 @@ int main()
 			std::list<Obstacle*>::iterator itO = obstacles.begin();
 			std::list<Flipper*>::iterator itF = flippers.begin();
 			//std::cout << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.x << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.y << std::endl;
+			item.CallPowerUp(isItemActive, deltaTime);
+			item.DestroyItem(isItemActive, deltaTime, Collision::CircleToCircle(ball.ball, item.item).isColliding, ball);
 
 			while (itB != balls.end())
 			{
@@ -150,11 +159,39 @@ int main()
 				(*(*itB)).MoveBall(deltaTime);
 				itB++;
 			}
-			//ball.BounceBall(bounce.Bouncing(Collision::CircleToCircle(ball.ball, bounce.bouncer)), .5f, deltaTime);
-			//ball.BounceBall(bounce2.Bouncing(Collision::CircleToCircle(ball.ball, bounce2.bouncer)), .5f, deltaTime);
-			//ball.BounceBall(Collision::CircleToRectangle(ball.ball, wall.wall), .5f, deltaTime);
-
-			//ball.MoveBall(deltaTime);
+			if (ball.ball.getPosition().y > WINDOW_H - ball.ball.getRadius())
+			{
+				manager.UpdateScore(false, ball);
+				if (manager.scoreJ2 > 9)
+				{
+					j2Won = true;
+					manager.Winner(false);
+					isStarting = false;
+				}
+				manager.RepoBall(ball);
+			}
+			if (ball.ball.getPosition().y < 0 + ball.ball.getRadius())
+			{
+				manager.UpdateScore(true, ball);
+				manager.RepoBall(ball);
+				if (manager.scoreJ1 > 9)
+				{
+					j1Won = true;
+					manager.Winner(true);
+					isStarting = false;
+				}
+			}
+		}
+		else if (j1Won || j2Won)
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			{
+				manager.scoreJ1 = 0;
+				manager.scoreJ2 = 0;
+				j1Won = false;
+				j2Won = false;
+				isStarting = false;
+			}
 		}
 		else 
 		{
@@ -194,8 +231,15 @@ int main()
 				(*(*itF)).Draw(window);
 				itF++;
 			}
-			
+			item.DrawItem(window);
+			manager.UpdateUI();
+			manager.DrawUI(window);
 		}
+		else if (j1Won || j2Won)
+		{
+			manager.DrawWinner(window);
+		}
+
 		else 
 		{
 			menu.DrawMenu(window);

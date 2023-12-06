@@ -3,7 +3,7 @@
 
 void Ball::InitBall()
 {
-	int radius = 25;
+	int radius = 15;
 	ball.setFillColor(sf::Color::Green);
 	ball.setPosition(WINDOW_W/2, WINDOW_H/2);
 	ball.setRadius(radius);
@@ -48,9 +48,15 @@ void Ball::BounceBall(Collision::CollisionInfo info, float mulV, float deltaTime
 		if (angleB == 0) {
 			speed = magSpeed * info.normal;
 		}
-		else {
+		else if(angleB > 0)
+		{
 			speed.x = -magSpeed* cos(angle);
 			speed.y = magSpeed* sin(angle);
+		}
+		else 
+		{
+			speed.x = -magSpeed * cos(angle);
+			speed.y = magSpeed * -sin(angle);
 		}
 		//speed = info.normal * magSpeed;
 		//sf::Vector2f dir = sf::Vector2f(-cos(angle), sin(angle));
