@@ -1,9 +1,8 @@
 #include "Bounce.h"
 
 
-void Bounce::InitBounce(sf::Color color, sf::Vector2f pos)
+void Bounce::InitBounce(sf::Color color, sf::Vector2f pos, float radius)
 {
-	int radius = 50;
 	bouncer.setFillColor(color);
 	bouncer.setPosition(pos);
 	bouncer.setRadius(radius);
