@@ -44,3 +44,16 @@ void Flipper::Draw(sf::RenderWindow& window)
 {
 	window.draw(flipperShape);
 }
+
+float Flipper::getLinearSpeed(sf::Vector2f point)
+{
+	float angle = flipperShape.getRotation();
+	float testAngle = angle > 180 ? angle - 360 : angle;
+	if (testAngle == maxAngle || testAngle == baseAngle) {
+		return 0;
+	}
+	sf::Vector2f flipPos = flipperShape.getPosition();
+	sf::Vector2f flipVect = sf::Vector2f(cos(angle), sin(angle));
+	sf::Vector2f projected = (flipVect.x * (point.x - flipPos.x) + flipVect.y * (point.y - flipPos.y)) * flipVect;
+	return sqrt(projected.x * projected.x + projected.y * projected.y);
+}
