@@ -104,8 +104,8 @@ int main()
 					itO++;
 				}
 				while (itF != flippers.end()) {
-					(*(*itB)).BounceBall(Collision::CircleToOrientedRectangle((*(*itB)).ball, (*(*itF)).flipperShape), 1.f, deltaTime);
-					if (Collision::CircleToOrientedRectangle((*(*itB)).ball, (*(*itF)).flipperShape).isColliding) {
+					Collision::CollisionInfo col = Collision::CircleToOrientedRectangle((*(*itB)).ball, (*(*itF)).flipperShape);
+					if (col.isColliding) {
 						if (downGravity && (*(*itF)).player1) {
 							downGravity = !downGravity;
 							(*(*itB)).gravity *= -1;
@@ -114,6 +114,9 @@ int main()
 							downGravity = !downGravity;
 							(*(*itB)).gravity *= -1;
 						}
+						float mul = (*(*itF)).getLinearSpeed((*(*itB)).ball.getPosition())/10.f;
+						std::cout << mul << std::endl;
+						(*(*itB)).BounceBall(col, mul, deltaTime);
 					}
 					
 					itF++;

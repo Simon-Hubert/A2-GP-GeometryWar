@@ -56,7 +56,7 @@ void Ball::BounceBall(Collision::CollisionInfo info, float mulV, float deltaTime
 		//sf::Vector2f dir = sf::Vector2f(-cos(angle), sin(angle));
 		pos = pos + info.penetration * info.normal;
 		ball.setPosition(pos);
-		std::cout << info.normal.x << " "<< info.normal.y << "\n";
+		//std::cout << info.normal.x << " "<< info.normal.y << "\n";
 	}
 }
 
