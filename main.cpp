@@ -9,6 +9,7 @@
 #include "Menu.h"
 #include "Player.h"
 #include "const.h"
+#include "GameManager.h"
 
 using namespace Collision;
 constexpr float cubeSpeed = 500.f;
@@ -20,8 +21,11 @@ int main()
 	window.setVerticalSyncEnabled(true);
 
 	// Début de la boucle de jeu
+	GameManager manager;
+	manager.InitUI();
 	bool isStarting = false;
 	bool downGravity = true;
+	bool j1Won = false, j2Won = false;
 	Menu menu;
 	sf::Clock frameClock;
 	Ball ball;
@@ -29,14 +33,13 @@ int main()
 	Bounce bounce, bounce2;
 	Obstacle wall;
 
-	player1.Init(sf::Vector2f(640, 600), true);
-	player2.Init(sf::Vector2f(640, 120), false);
+	player1.Init(sf::Vector2f(340, WINDOW_H - 120), true);
+	player2.Init(sf::Vector2f(340, 120), false);
 	ball.InitBall();
-	wall.InitWall(sf::Color::Red, sf::Vector2f(-550, 400), sf::Vector2f(150, 50));
 	bounce.InitBounce(sf::Color::Red, sf::Vector2f(-600, 400));
 	bounce.InitBounce(sf::Color::Magenta, sf::Vector2f(200, 600));
 	bounce2.InitBounce(sf::Color::Blue, sf::Vector2f(1000, 460));
-	wall.InitWall(sf::Color::White, sf::Vector2f(300, 400), sf::Vector2f(100, 50));
+	wall.InitWall(sf::Color::White, sf::Vector2f(300, 400), sf::Vector2f(50, 100));
 
 	std::list<Flipper*> flippers;
 	flippers.push_front(player1.getFlipper(true));
@@ -121,11 +124,40 @@ int main()
 				(*(*itB)).MoveBall(deltaTime);
 				itB++;
 			}
-			//ball.BounceBall(bounce.Bouncing(Collision::CircleToCircle(ball.ball, bounce.bouncer)), .5f, deltaTime);
-			//ball.BounceBall(bounce2.Bouncing(Collision::CircleToCircle(ball.ball, bounce2.bouncer)), .5f, deltaTime);
-			//ball.BounceBall(Collision::CircleToRectangle(ball.ball, wall.wall), .5f, deltaTime);
-
-			//ball.MoveBall(deltaTime);
+			
+			if (ball.ball.getPosition().y > WINDOW_H - ball.ball.getRadius())
+			{
+				manager.UpdateScore(false, ball);
+				if (manager.scoreJ2 > 9)
+				{
+					j2Won = true;
+					manager.Winner(false);
+					isStarting = false;
+				}
+				manager.RepoBall(ball);
+			}
+			if(ball.ball.getPosition().y < 0 + ball.ball.getRadius())
+			{
+				manager.UpdateScore(true, ball);
+				manager.RepoBall(ball);
+				if (manager.scoreJ1 > 9)
+				{
+					j1Won = true;
+					manager.Winner(true);
+					isStarting = false;
+				}
+			}
+		}
+		else if (j1Won || j2Won)
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			{
+				manager.scoreJ1 = 0;
+				manager.scoreJ2 = 0;
+				j1Won = false;
+				j2Won = false;
+				isStarting = false;
+			}
 		}
 		else 
 		{
@@ -165,7 +197,13 @@ int main()
 				(*(*itF)).Draw(window);
 				itF++;
 			}
-			
+
+			manager.UpdateUI();
+			manager.DrawUI(window);
+		}
+		else if (j1Won||j2Won)
+		{
+			manager.DrawWinner(window);
 		}
 		else 
 		{

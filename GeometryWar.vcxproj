@@ -90,6 +90,7 @@
     <ClCompile Include="Bounce.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Flipper.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Obstacle.cpp" />
@@ -102,6 +103,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="const.h" />
     <ClInclude Include="Flipper.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Player.h" />

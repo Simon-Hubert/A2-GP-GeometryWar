@@ -2,6 +2,7 @@
 #include <SFML/Window.hpp>
 #include <iostream>
 #include "Collision.h"
+#include "const.h"
 
 using namespace Collision;
 

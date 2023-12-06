@@ -5,7 +5,7 @@ void Ball::InitBall()
 {
 	int radius = 25;
 	ball.setFillColor(sf::Color::Green);
-	ball.setPosition(600, 300);
+	ball.setPosition(WINDOW_W/2, WINDOW_H/2);
 	ball.setRadius(radius);
 	ball.setOrigin(radius, radius);
 	//speed.y = 1;
