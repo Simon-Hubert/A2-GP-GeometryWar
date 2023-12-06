@@ -40,9 +40,17 @@ void Ball::BounceBall(Collision::CollisionInfo info, float mulV, float deltaTime
 		float magSpeed = sqrt(speed.x * speed.x + speed.y * speed.y);
 		float minSpeed = 150;
 		float maxSpeed = 500;
-		magSpeed = magSpeed * mulV > maxSpeed ? maxSpeed : magSpeed * mulV;
-		if (magSpeed * mulV < minSpeed) magSpeed = minSpeed;
-		else magSpeed *= mulV;
+		//magSpeed = magSpeed * mulV > maxSpeed ? maxSpeed : magSpeed * mulV;
+		//if (magSpeed * mulV < minSpeed) magSpeed = minSpeed;
+		//else magSpeed *= mulV;
+		if (magSpeed * mulV > maxSpeed || magSpeed * mulV < minSpeed)
+		{
+			magSpeed = magSpeed * mulV > maxSpeed ? maxSpeed : minSpeed;
+		}
+		else 
+		{
+			magSpeed = magSpeed * mulV;
+		}
 		float angleB =  atan2(-info.normal.y, -info.normal.x) - atan2(speed.y, speed.x);
 		float angle = atan2(-info.normal.y,- info.normal.x) + angleB;
 		if (angleB == 0) {

@@ -53,7 +53,7 @@ float Flipper::getLinearSpeed(sf::Vector2f point)
 		return 0;
 	}
 	sf::Vector2f flipPos = flipperShape.getPosition();
-	sf::Vector2f flipVect = sf::Vector2f(cos(angle), sin(angle));
+	sf::Vector2f flipVect = sf::Vector2f(cos(angle * 6.28318 / 360), sin(angle * 6.28318 / 360));
 	sf::Vector2f projected = (flipVect.x * (point.x - flipPos.x) + flipVect.y * (point.y - flipPos.y)) * flipVect;
 	return sqrt(projected.x * projected.x + projected.y * projected.y);
 }

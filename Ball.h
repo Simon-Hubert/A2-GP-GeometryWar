@@ -11,6 +11,7 @@ using namespace Collision;
 class Ball
 {
 	public:
+		bool wasHit = false;
 		float gravity = 9.81f ;
 		sf::CircleShape ball;
 		sf::Vector2f pos;

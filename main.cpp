@@ -11,6 +11,7 @@
 #include "const.h"
 #include "GameManager.h"
 #include "PowerUp.h"
+#include "Flipper.h"
 
 using namespace Collision;
 constexpr float cubeSpeed = 500.f;
@@ -147,18 +148,29 @@ int main()
 						if (downGravity && (*(*itF)).player1) {
 							downGravity = !downGravity;
 							(*(*itB)).gravity *= -1;
+							std::cout << "gravity changed1" << "\n";
 						}
-						if (!downGravity && !(*(*itF)).player1){
+						else if (!downGravity && !(*(*itF)).player1){
 							downGravity = !downGravity;
 							(*(*itB)).gravity *= -1;
+							std::cout << "gravity changed2" << "\n";
 						}
-						float mul = (*(*itF)).getLinearSpeed((*(*itB)).ball.getPosition())/10.f;
-						std::cout << mul << std::endl;
-						(*(*itB)).BounceBall(col, mul, deltaTime);
+						if (!ball.wasHit)
+						{
+							float mul = (*(*itF)).getLinearSpeed((*(*itB)).ball.getPosition()) / 20.f;
+							std::cout << mul << std::endl;
+							(*(*itB)).BounceBall(col, mul, deltaTime);
+						}
+						else 
+						{
+							(*(*itB)).BounceBall(col, 1, deltaTime);
+						}
+						ball.wasHit = true;
 					}
 					
 					itF++;
 				}
+				ball.wasHit = false;
 				(*(*itB)).MoveBall(deltaTime);
 				itB++;
 			}
@@ -172,6 +184,7 @@ int main()
 					isStarting = false;
 				}
 				manager.RepoBall(ball);
+				downGravity = true;
 			}
 			if (ball.ball.getPosition().y < 0 + ball.ball.getRadius())
 			{
@@ -183,6 +196,7 @@ int main()
 					manager.Winner(true);
 					isStarting = false;
 				}
+				downGravity = false;
 			}
 		}
 		else if (j1Won || j2Won)
