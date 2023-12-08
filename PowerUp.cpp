@@ -21,7 +21,7 @@ Item Item::InitItem()
 {
 	int radius = 25;
 	item.setFillColor(sf::Color::Green);
-	item.setPosition(rand() % 1280, rand() % 720);
+	item.setPosition(rand() % WINDOW_W * 0.5f + WINDOW_W * 0.3f, rand() % WINDOW_H * 0.5f + WINDOW_H * 0.3f);
 	//item.setPosition(600, 500);
 	item.setRadius(radius);
 	item.setOrigin(radius, radius);
@@ -33,7 +33,7 @@ void Item::DrawItem(sf::RenderWindow& window)
 	window.draw(item);
 }
 
-void Item::DestroyItem(bool &isItem, float deltaTime, bool collision, Ball ball) {
+void Item::DestroyItem(bool &isItem, float deltaTime, bool collision, Ball &ball) {
 	if (isItem == true) {
 		float LifeTimePowerUp = 6.f;
 		chrono += deltaTime;
@@ -66,8 +66,8 @@ Item Item::FalseInitItem()
 
 
 void Item::Powerup1(Ball &ball) {
-	ball.speed.x *= 6.f;
-	ball.speed.y *= 6.f;
+	ball.speed.x *= 2.f;
+	ball.speed.y *= 2.f;
 	std::cout << "dw,nfkhisfodh" << std::endl;
 }
 

@@ -17,7 +17,7 @@ class Item {
 		Item InitItem();
 		void DrawItem(sf::RenderWindow& window);
 		void CallPowerUp(bool &isItem, float deltaTime);
-		void DestroyItem(bool &isItem, float deltaTime, bool collision, Ball ball);
+		void DestroyItem(bool &isItem, float deltaTime, bool collision, Ball &ball);
 		Item FalseInitItem();
 		void CollisionItem(Ball &ball);
 		void Powerup1(Ball &ball);
