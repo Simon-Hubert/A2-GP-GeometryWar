@@ -34,12 +34,14 @@ int main()
 	Item item;
 	bool isItemActive = false;
 	Ball ball;
-	Player player1, player2;
+	Player player11, player12, player21, player22;
 	Bounce bounce1, bounce2, bounce3, bounce4;
 	Obstacle wall1, wall2, wall3, wall4, wallSafe1, wallSafe2, wallSafe3, wallSafe4, wallBorder1, wallBorder2;
 
-	player1.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.9f), true);
-	player2.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.1f), false);
+	player11.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.9f),WINDOW_W/5, true);
+	player12.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.8f),WINDOW_W/3, true);
+	player21.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.1f),WINDOW_W/5, false);
+	player22.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.2f),WINDOW_W/3, false);
 
 	bounce1.InitBounce(sf::Color::Red, sf::Vector2f(rand() % WINDOW_W, rand() % WINDOW_H * 0.6f + WINDOW_H * 0.2f), 20);
 	bounce2.InitBounce(sf::Color::Red, sf::Vector2f(rand() % WINDOW_W, rand() % WINDOW_H * 0.6f + WINDOW_H * 0.2f), 20);
@@ -66,10 +68,14 @@ int main()
 	wallSafe2.wall.rotate(30.f);
 
 	std::list<Flipper*> flippers;
-	flippers.push_front(player1.getFlipper(true));
-	flippers.push_front(player1.getFlipper(false));
-	flippers.push_front(player2.getFlipper(true));
-	flippers.push_front(player2.getFlipper(false));
+	flippers.push_front(player11.getFlipper(true));
+	flippers.push_front(player11.getFlipper(false));
+	flippers.push_front(player12.getFlipper(true));
+	flippers.push_front(player12.getFlipper(false));
+	flippers.push_front(player21.getFlipper(true));
+	flippers.push_front(player21.getFlipper(false));
+	flippers.push_front(player22.getFlipper(true));
+	flippers.push_front(player22.getFlipper(false));
 
 	std::list<Ball*> balls;
 	balls.push_front(&ball);
@@ -120,8 +126,10 @@ int main()
 		// Logique
 		if (isStarting == true)
 		{
-			player1.Update(deltaTime);
-			player2.Update(deltaTime);
+			player11.Update(deltaTime);
+			player12.Update(deltaTime);
+			player21.Update(deltaTime);
+			player22.Update(deltaTime);
 			std::list<Ball*>::iterator itB = balls.begin();
 			std::list<Bounce*>::iterator itBo = bounces.begin();
 			std::list<Obstacle*>::iterator itO = obstacles.begin();
