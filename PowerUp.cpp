@@ -1,9 +1,10 @@
 #include "PowerUp.h"
 
 void Item::CallPowerUp(bool &isItem, float deltaTime) {
-	float PowerUpCooldown = 0.5f;
+	float PowerUpCooldown = 3.f;
+	int Probability = rand() % 100;
 	chrono += deltaTime;
-	if (chrono >= PowerUpCooldown && isItem == false) {
+	if (chrono >= PowerUpCooldown && isItem == false && Probability >= 0 && Probability <= 25) {
 		InitItem();
 		isItem = true;
 		chrono = 0;
@@ -20,7 +21,7 @@ Item Item::InitItem()
 {
 	int radius = 25;
 	item.setFillColor(sf::Color::Green);
-	item.setPosition(rand() % 1280, rand() % 720);
+	item.setPosition(rand() % WINDOW_W * 0.5f + WINDOW_W * 0.3f, rand() % WINDOW_H * 0.5f + WINDOW_H * 0.3f);
 	//item.setPosition(600, 500);
 	item.setRadius(radius);
 	item.setOrigin(radius, radius);
@@ -32,15 +33,17 @@ void Item::DrawItem(sf::RenderWindow& window)
 	window.draw(item);
 }
 
-void Item::DestroyItem(bool &isItem, float deltaTime, bool collision, Ball ball) {
+void Item::DestroyItem(bool &isItem, float deltaTime, bool collision, Ball &ball) {
 	if (isItem == true) {
-		float LifeTimePowerUp = 3.f;
+		float LifeTimePowerUp = 6.f;
 		chrono += deltaTime;
 		chronokill += deltaTime;
 		if (collision == true) {
 			CollisionItem(ball);
 			FalseInitItem();
 			isItem = false;
+			chrono = 0;
+			chronokill = 0;
 		}
 		if (chronokill >= LifeTimePowerUp) {
 			FalseInitItem();

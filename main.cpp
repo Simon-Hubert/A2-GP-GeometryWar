@@ -25,6 +25,7 @@ int main()
 
 	// Début de la boucle de jeu
 	GameManager manager;
+	srand(time(NULL));
 	manager.InitUI();
 	bool j1Won = false, j2Won = false;
 	bool isStarting = false;
@@ -34,27 +35,31 @@ int main()
 	Item item;
 	bool isItemActive = false;
 	Ball ball;
-	Player player1, player2;
-	Bounce bounce1, bounce2, bounce3, bounce4;
-	Obstacle wall1, wall2, wall3, wall4, wallSafe1, wallSafe2, wallSafe3, wallSafe4, wallBorder1, wallBorder2;
+	Player player11, player12, player21, player22;
+	Bounce bounce1, bounce2, bounce3, bounce4, bounce5, bounce6, bounce7, bounce8 ;
+	Obstacle wall1, wall2, wall3, wall4, wall5, wall6, wallSafe1, wallSafe2, wallSafe3, wallSafe4, wallBorder1, wallBorder2;
 
-	player1.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.9f), true);
-	player2.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.1f), false);
+	player11.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.89f), WINDOW_W / 5.5, true);
+	player12.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.6f), WINDOW_W / 2, true);
+	player21.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.11f), WINDOW_W / 5.5, false);
+	player22.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.4f), WINDOW_W / 2, false);
 
-	bounce1.InitBounce(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.3f, WINDOW_H * 0.7f), 30);
-	bounce2.InitBounce(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.7f, WINDOW_H * 0.7f), 30);
-	bounce3.InitBounce(sf::Color::Blue, sf::Vector2f(WINDOW_W * 0.3f, WINDOW_H * 0.3f), 30);
-	bounce4.InitBounce(sf::Color::Blue, sf::Vector2f(WINDOW_W * 0.7f, WINDOW_H * 0.3f), 30);
+	bounce1.InitBounce(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.4f, WINDOW_H * 0.7f), 20);
+	bounce2.InitBounce(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.6f, WINDOW_H * 0.3f), 20);
+	bounce3.InitBounce(sf::Color::Blue, sf::Vector2f(WINDOW_W * 0.3f, WINDOW_H * 0.4f), 20);
+	bounce4.InitBounce(sf::Color::Blue, sf::Vector2f(WINDOW_W * 0.7f, WINDOW_H * 0.6f), 20);
 
 
-	wall1.InitWall(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.f, WINDOW_H * 0.5f), sf::Vector2f(WINDOW_W * 0.3f, WINDOW_H * 0.01f));
-	wall2.InitWall(sf::Color::Blue, sf::Vector2f(WINDOW_W, WINDOW_H * 0.5f), sf::Vector2f(WINDOW_W * 0.3f, WINDOW_H * 0.01f));
-	wall3.InitWall(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.7f, WINDOW_H * 0.7f - ((WINDOW_H * 0.15f) / 2)), sf::Vector2f(WINDOW_W * 0.02f, WINDOW_H * 0.15f));
-	wall4.InitWall(sf::Color::Blue, sf::Vector2f(WINDOW_W * 0.3f, WINDOW_H * 0.3f + ((WINDOW_H * 0.15f)/2)), sf::Vector2f(WINDOW_W * 0.02f, WINDOW_H * 0.15f));
-	wallSafe1.InitWall(sf::Color::White, sf::Vector2f(WINDOW_W * 0.85f, WINDOW_H * 0.806f), sf::Vector2f(WINDOW_W * 0.40f, WINDOW_H * 0.005f));
-	wallSafe2.InitWall(sf::Color::White, sf::Vector2f(WINDOW_W * 0.15f, WINDOW_H * 0.806f), sf::Vector2f(WINDOW_W * 0.40f, WINDOW_H * 0.005f));
-	wallSafe3.InitWall(sf::Color::White, sf::Vector2f(WINDOW_W * 0.15f, WINDOW_H * 0.194f), sf::Vector2f(WINDOW_W * 0.40f, WINDOW_H * 0.005f));
-	wallSafe4.InitWall(sf::Color::White, sf::Vector2f(WINDOW_W * 0.85f, WINDOW_H * 0.194f), sf::Vector2f(WINDOW_W * 0.40f, WINDOW_H * 0.005f));
+	wall1.InitWall(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.f, WINDOW_H * 0.5f), sf::Vector2f(WINDOW_W * 0.2f, WINDOW_H * 0.01f));
+	wall2.InitWall(sf::Color::Blue, sf::Vector2f(WINDOW_W, WINDOW_H * 0.5f), sf::Vector2f(WINDOW_W * 0.2f, WINDOW_H * 0.01f));
+	wall3.InitWall(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.9f, WINDOW_H * 0.79f - ((WINDOW_H * 0.15f) / 2)), sf::Vector2f(WINDOW_W * 0.015f, WINDOW_H * 0.15f));
+	wall4.InitWall(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.1f, WINDOW_H * 0.79f - ((WINDOW_H * 0.15f) / 2)), sf::Vector2f(WINDOW_W * 0.015f, WINDOW_H * 0.15f));
+	wall5.InitWall(sf::Color::Blue, sf::Vector2f(WINDOW_W * 0.9f, WINDOW_H * 0.21f + ((WINDOW_H * 0.15f) / 2)), sf::Vector2f(WINDOW_W * 0.015f, WINDOW_H * 0.15f));
+	wall6.InitWall(sf::Color::Blue, sf::Vector2f(WINDOW_W * 0.1f, WINDOW_H * 0.21f + ((WINDOW_H * 0.15f) / 2)), sf::Vector2f(WINDOW_W * 0.015f, WINDOW_H * 0.15f));
+	wallSafe1.InitWall(sf::Color::White, sf::Vector2f(WINDOW_W * 0.85f, WINDOW_H * 0.81f), sf::Vector2f(WINDOW_W * 0.40f, WINDOW_H * 0.005f));
+	wallSafe2.InitWall(sf::Color::White, sf::Vector2f(WINDOW_W * 0.15f, WINDOW_H * 0.81f), sf::Vector2f(WINDOW_W * 0.40f, WINDOW_H * 0.005f));
+	wallSafe3.InitWall(sf::Color::White, sf::Vector2f(WINDOW_W * 0.15f, WINDOW_H * 0.19f), sf::Vector2f(WINDOW_W * 0.40f, WINDOW_H * 0.005f));
+	wallSafe4.InitWall(sf::Color::White, sf::Vector2f(WINDOW_W * 0.85f, WINDOW_H * 0.19f), sf::Vector2f(WINDOW_W * 0.40f, WINDOW_H * 0.005f));
 	wallBorder1.InitWall(sf::Color::Magenta, sf::Vector2f(0 - 5, WINDOW_H * 0.5f), sf::Vector2f(-10, WINDOW_H));
 	wallBorder2.InitWall(sf::Color::Magenta, sf::Vector2f(WINDOW_W + 5, WINDOW_H * 0.5f), sf::Vector2f(10, WINDOW_H));
 
@@ -66,10 +71,14 @@ int main()
 	wallSafe2.wall.rotate(30.f);
 
 	std::list<Flipper*> flippers;
-	flippers.push_front(player1.getFlipper(true));
-	flippers.push_front(player1.getFlipper(false));
-	flippers.push_front(player2.getFlipper(true));
-	flippers.push_front(player2.getFlipper(false));
+	flippers.push_front(player11.getFlipper(true));
+	flippers.push_front(player11.getFlipper(false));
+	flippers.push_front(player12.getFlipper(true));
+	flippers.push_front(player12.getFlipper(false));
+	flippers.push_front(player21.getFlipper(true));
+	flippers.push_front(player21.getFlipper(false));
+	flippers.push_front(player22.getFlipper(true));
+	flippers.push_front(player22.getFlipper(false));
 
 	std::list<Ball*> balls;
 	balls.push_front(&ball);
@@ -83,8 +92,10 @@ int main()
 	std::list<Obstacle*> obstacles;
 	obstacles.push_front(&wall1);
 	obstacles.push_front(&wall2);
-	obstacles.push_front(&wall3);
-	obstacles.push_front(&wall4);
+	//obstacles.push_front(&wall3);
+	//obstacles.push_front(&wall4);
+	//obstacles.push_front(&wall5);
+	//obstacles.push_front(&wall6);
 	obstacles.push_front(&wallSafe1);
 	obstacles.push_front(&wallSafe2);
 	obstacles.push_front(&wallSafe3);
@@ -120,8 +131,10 @@ int main()
 		// Logique
 		if (isStarting == true)
 		{
-			player1.Update(deltaTime);
-			player2.Update(deltaTime);
+			player11.Update(deltaTime);
+			player12.Update(deltaTime);
+			player21.Update(deltaTime);
+			player22.Update(deltaTime);
 			std::list<Ball*>::iterator itB = balls.begin();
 			std::list<Bounce*>::iterator itBo = bounces.begin();
 			std::list<Obstacle*>::iterator itO = obstacles.begin();

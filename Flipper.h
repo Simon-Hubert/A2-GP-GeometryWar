@@ -16,7 +16,7 @@ public:
 	float baseAngle = -30.f;
 	sf::RectangleShape flipperShape;
 	bool isDroit;
-	void Init(sf::Vector2f pos, sf::Keyboard::Key inputA, sf::Keyboard::Key inputB);
+	void Init(sf::Vector2f pos, int largeur, sf::Keyboard::Key inputA, sf::Keyboard::Key inputB);
 	void Update(float deltaTime);
 	void Draw(sf::RenderWindow& window);
 	float getLinearSpeed(sf::Vector2f point);
