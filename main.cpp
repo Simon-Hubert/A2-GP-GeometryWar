@@ -21,6 +21,7 @@ int main()
 
 	sf::RenderWindow window(sf::VideoMode(WINDOW_W, WINDOW_H), "Geometry Wars");
 	window.setVerticalSyncEnabled(true);
+	window.setFramerateLimit(60);
 
 	// Début de la boucle de jeu
 	GameManager manager;
@@ -134,7 +135,7 @@ int main()
 				(*(*itB)).UpdateBall(deltaTime);
 				while (itBo != bounces.end())
 				{
-					(*(*itB)).BounceBall((*(*itBo)).Bouncing(Collision::CircleToCircle((*(*itB)).ball, (*(*itBo)).bouncer)), .5f, deltaTime);
+					(*(*itB)).BounceBall((*(*itBo)).Bouncing(Collision::CircleToCircle((*(*itB)).ball, (*(*itBo)).bouncer), deltaTime), .5f, deltaTime);
 					itBo++;
 				}
 				while (itO != obstacles.end())

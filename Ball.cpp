@@ -16,8 +16,8 @@ void Ball::MoveBall(float deltaTime)
 
 	pos = ball.getPosition();
 	//speed.y= speed.y+ (deltaTime * gravity);
-	pos.y = pos.y + (speed.y * deltaTime);
-	pos.x = pos.x + (speed.x * deltaTime);
+	pos.y = pos.y + (speed.y * deltaTime * 2);
+	pos.x = pos.x + (speed.x * deltaTime * 2);
 	
 	ball.setPosition(pos);
 }

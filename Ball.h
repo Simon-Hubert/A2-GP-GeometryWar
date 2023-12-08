@@ -12,7 +12,7 @@ class Ball
 {
 	public:
 		bool wasHit = false;
-		float gravity = 9.81f ;
+		float gravity = 10.81f ;
 		sf::CircleShape ball;
 		sf::Vector2f pos;
 		sf::Vector2f speed = { (float)(rand() %10 + 5), 0};

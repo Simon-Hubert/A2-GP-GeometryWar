@@ -2,7 +2,7 @@
 
 void GameManager::RepoBall(Ball& ballToReplace)
 {
-	ballToReplace.speed = { (float)(rand() % 10 + 5),0};
+	ballToReplace.speed = { (float)(rand() % 20 + 10),0};
 	ballToReplace.ball.setPosition(WINDOW_W / 2, WINDOW_H / 2);
 }
 
