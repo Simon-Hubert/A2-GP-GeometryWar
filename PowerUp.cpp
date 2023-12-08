@@ -66,8 +66,8 @@ Item Item::FalseInitItem()
 
 
 void Item::Powerup1(Ball &ball) {
-	ball.speed.x *= 2.f;
-	ball.speed.y *= 2.f;
+	ball.speed.x *= 6.f;
+	ball.speed.y *= 6.f;
 	std::cout << "dw,nfkhisfodh" << std::endl;
 }
 

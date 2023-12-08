@@ -36,23 +36,25 @@ int main()
 	Ball ball;
 	Player player11, player12, player21, player22;
 	Bounce bounce1, bounce2, bounce3, bounce4, bounce5, bounce6, bounce7, bounce8 ;
-	Obstacle wall1, wall2, wall3, wall4, wallSafe1, wallSafe2, wallSafe3, wallSafe4, wallBorder1, wallBorder2;
+	Obstacle wall1, wall2, wall3, wall4, wall5, wall6, wallSafe1, wallSafe2, wallSafe3, wallSafe4, wallBorder1, wallBorder2;
 
 	player11.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.89f), WINDOW_W / 5.5, true);
 	player12.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.6f), WINDOW_W / 2, true);
 	player21.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.11f), WINDOW_W / 5.5, false);
 	player22.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.4f), WINDOW_W / 2, false);
 
-	bounce1.InitBounce(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.3f, WINDOW_H * 0.7f), 20);
-	bounce2.InitBounce(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.7f, WINDOW_H * 0.7f), 20);
-	bounce3.InitBounce(sf::Color::Blue, sf::Vector2f(WINDOW_W * 0.3f, WINDOW_H * 0.3f), 20);
-	bounce4.InitBounce(sf::Color::Blue, sf::Vector2f(WINDOW_W * 0.7f, WINDOW_H * 0.3f), 20);
+	bounce1.InitBounce(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.4f, WINDOW_H * 0.7f), 20);
+	bounce2.InitBounce(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.6f, WINDOW_H * 0.3f), 20);
+	bounce3.InitBounce(sf::Color::Blue, sf::Vector2f(WINDOW_W * 0.3f, WINDOW_H * 0.4f), 20);
+	bounce4.InitBounce(sf::Color::Blue, sf::Vector2f(WINDOW_W * 0.7f, WINDOW_H * 0.6f), 20);
 
 
 	wall1.InitWall(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.f, WINDOW_H * 0.5f), sf::Vector2f(WINDOW_W * 0.2f, WINDOW_H * 0.01f));
 	wall2.InitWall(sf::Color::Blue, sf::Vector2f(WINDOW_W, WINDOW_H * 0.5f), sf::Vector2f(WINDOW_W * 0.2f, WINDOW_H * 0.01f));
-	wall3.InitWall(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.7f, WINDOW_H * 0.7f - ((WINDOW_H * 0.15f) / 2)), sf::Vector2f(WINDOW_W * 0.02f, WINDOW_H * 0.15f));
-	wall4.InitWall(sf::Color::Blue, sf::Vector2f(WINDOW_W * 0.3f, WINDOW_H * 0.3f + ((WINDOW_H * 0.15f) / 2)), sf::Vector2f(WINDOW_W * 0.02f, WINDOW_H * 0.15f));
+	wall3.InitWall(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.9f, WINDOW_H * 0.79f - ((WINDOW_H * 0.15f) / 2)), sf::Vector2f(WINDOW_W * 0.015f, WINDOW_H * 0.15f));
+	wall4.InitWall(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.1f, WINDOW_H * 0.79f - ((WINDOW_H * 0.15f) / 2)), sf::Vector2f(WINDOW_W * 0.015f, WINDOW_H * 0.15f));
+	wall5.InitWall(sf::Color::Blue, sf::Vector2f(WINDOW_W * 0.9f, WINDOW_H * 0.21f + ((WINDOW_H * 0.15f) / 2)), sf::Vector2f(WINDOW_W * 0.015f, WINDOW_H * 0.15f));
+	wall6.InitWall(sf::Color::Blue, sf::Vector2f(WINDOW_W * 0.1f, WINDOW_H * 0.21f + ((WINDOW_H * 0.15f) / 2)), sf::Vector2f(WINDOW_W * 0.015f, WINDOW_H * 0.15f));
 	wallSafe1.InitWall(sf::Color::White, sf::Vector2f(WINDOW_W * 0.85f, WINDOW_H * 0.81f), sf::Vector2f(WINDOW_W * 0.40f, WINDOW_H * 0.005f));
 	wallSafe2.InitWall(sf::Color::White, sf::Vector2f(WINDOW_W * 0.15f, WINDOW_H * 0.81f), sf::Vector2f(WINDOW_W * 0.40f, WINDOW_H * 0.005f));
 	wallSafe3.InitWall(sf::Color::White, sf::Vector2f(WINDOW_W * 0.15f, WINDOW_H * 0.19f), sf::Vector2f(WINDOW_W * 0.40f, WINDOW_H * 0.005f));
@@ -89,8 +91,10 @@ int main()
 	std::list<Obstacle*> obstacles;
 	obstacles.push_front(&wall1);
 	obstacles.push_front(&wall2);
-	obstacles.push_front(&wall3);
-	obstacles.push_front(&wall4);
+	//obstacles.push_front(&wall3);
+	//obstacles.push_front(&wall4);
+	//obstacles.push_front(&wall5);
+	//obstacles.push_front(&wall6);
 	obstacles.push_front(&wallSafe1);
 	obstacles.push_front(&wallSafe2);
 	obstacles.push_front(&wallSafe3);
