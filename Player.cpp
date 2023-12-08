@@ -1,7 +1,7 @@
 #include "Player.h"
 #define TAU 6.28318530718
 
-void Player::Init(sf::Vector2f pos, bool player1)
+void Player::Init(sf::Vector2f pos, int largeur, bool player1)
 {
 	position = pos;
 	flipperDroit.isDroit = true;
@@ -23,8 +23,8 @@ void Player::Init(sf::Vector2f pos, bool player1)
 		inputA = sf::Keyboard::Key::J;
 		inputB = sf::Keyboard::Key::L;
 	}
-	flipperDroit.Init(position, inputA, inputB);
-	flipperGauche.Init(position, inputA, inputB);
+	flipperDroit.Init(position, largeur, inputA, inputB);
+	flipperGauche.Init(position, largeur, inputA, inputB);
 }
 
 void Player::Update(float deltaTime)

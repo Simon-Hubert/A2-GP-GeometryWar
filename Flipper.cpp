@@ -1,13 +1,13 @@
 #include "Flipper.h"
 
-void Flipper::Init(sf::Vector2f pos, sf::Keyboard::Key inputA, sf::Keyboard::Key inputB)
+void Flipper::Init(sf::Vector2f pos, int largeur, sf::Keyboard::Key inputA, sf::Keyboard::Key inputB)
 {
-	float posX = pos.x - 120;
+	float posX = pos.x - largeur;
 	float originX = size.x / 4;
 	input = inputA;
 	
 	if (isDroit) {
-		posX = pos.x + 120;
+		posX = pos.x + largeur;
 		originX = 3 * size.x / 4;
 		input = inputB;
 		speed = -speed;
