@@ -8,9 +8,12 @@ using namespace Collision;
 #pragma once
 class Bounce
 {
-
+	float posAnm = 0;
+	float radiusMin;
+	const float duration = 0.01f;
 	sf::Vector2f pos;
 	public:
+	bool isAnimate = false;
 	sf::CircleShape bouncer;
 	float radiusMax;
 	void InitBounce(sf::Color color, sf::Vector2f pos, float radius);

@@ -8,6 +8,7 @@ void Bounce::InitBounce(sf::Color color, sf::Vector2f pos, float radius)
 	bouncer.setRadius(radius);
 	bouncer.setOrigin(radius, radius);
 	radiusMax = bouncer.getRadius() + 10;
+	radiusMin = bouncer.getRadius();
 }
 
 CollisionInfo Bounce::Bouncing(Collision::CollisionInfo info, float deltatime)
@@ -54,4 +55,22 @@ void Bounce::Animate(float deltaTime)
 		break;
 
 	}	
+	isAnimate = true;
+}
+
+void Bounce::UpdateAnm(float deltatime)
+{
+	if (isAnimate)
+	{
+		posAnm += deltatime;
+		float t = posAnm / duration;
+		float scale = (1 - t) + (radiusMax - radiusMin) + radiusMin;
+		bouncer.setRadius(scale);
+		if (bouncer.getRadius() <= radiusMin && isAnimate == true)
+		{
+			isAnimate = false;
+			posAnm = 0;
+			bouncer.setRadius(radiusMin);
+		}
+	}
 }

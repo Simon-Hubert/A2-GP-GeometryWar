@@ -250,6 +250,7 @@ int main()
 			while (itBo != bounces.end())
 			{
 				(*(*itBo)).DrawBounce(window);
+				(*(*itBo)).UpdateAnm(deltaTime);
 				itBo++;
 			}
 			while (itO != obstacles.end())
