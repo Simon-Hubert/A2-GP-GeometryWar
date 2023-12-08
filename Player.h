@@ -14,7 +14,7 @@ private:
 	sf::Vector2f position;
 
 public:
-	void Init(sf::Vector2f pos, bool player1);
+	void Init(sf::Vector2f pos, int largeur, bool player1);
 	void Update(float deltaTime);
 	void Draw(sf::RenderWindow& window);
 	Flipper* getFlipper(bool Droit);
