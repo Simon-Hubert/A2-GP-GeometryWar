@@ -55,4 +55,13 @@ void Bounce::Animate(float deltaTime)
 
 	}	
 	
+	/*for (int i = 0; i < 10; i++)
+	{
+		if(bouncer.getRadius() < radiusMax)
+		bouncer.setRadius(bouncer.getRadius() + 1);
+		sf::sleep(sf::milliseconds (100));
+	}
+	*/
+
+	
 }
