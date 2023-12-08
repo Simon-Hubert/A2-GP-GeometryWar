@@ -35,28 +35,28 @@ int main()
 	bool isItemActive = false;
 	Ball ball;
 	Player player11, player12, player21, player22;
-	Bounce bounce1, bounce2, bounce3, bounce4;
+	Bounce bounce1, bounce2, bounce3, bounce4, bounce5, bounce6, bounce7, bounce8 ;
 	Obstacle wall1, wall2, wall3, wall4, wallSafe1, wallSafe2, wallSafe3, wallSafe4, wallBorder1, wallBorder2;
 
-	player11.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.9f),WINDOW_W/5, true);
-	player12.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.8f),WINDOW_W/3, true);
-	player21.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.1f),WINDOW_W/5, false);
-	player22.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.2f),WINDOW_W/3, false);
+	player11.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.89f), WINDOW_W / 5.5, true);
+	player12.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.6f), WINDOW_W / 2, true);
+	player21.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.11f), WINDOW_W / 5.5, false);
+	player22.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.4f), WINDOW_W / 2, false);
 
-	bounce1.InitBounce(sf::Color::Red, sf::Vector2f(rand() % WINDOW_W, rand() % WINDOW_H * 0.6f + WINDOW_H * 0.2f), 20);
-	bounce2.InitBounce(sf::Color::Red, sf::Vector2f(rand() % WINDOW_W, rand() % WINDOW_H * 0.6f + WINDOW_H * 0.2f), 20);
-	bounce3.InitBounce(sf::Color::Blue, sf::Vector2f(rand() % WINDOW_W, rand() % WINDOW_H * 0.6f + WINDOW_H * 0.2f), 20);
-	bounce4.InitBounce(sf::Color::Blue, sf::Vector2f(rand() % WINDOW_W, rand() % WINDOW_H * 0.6f + WINDOW_H * 0.2f), 20);
+	bounce1.InitBounce(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.3f, WINDOW_H * 0.7f), 20);
+	bounce2.InitBounce(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.7f, WINDOW_H * 0.7f), 20);
+	bounce3.InitBounce(sf::Color::Blue, sf::Vector2f(WINDOW_W * 0.3f, WINDOW_H * 0.3f), 20);
+	bounce4.InitBounce(sf::Color::Blue, sf::Vector2f(WINDOW_W * 0.7f, WINDOW_H * 0.3f), 20);
 
 
-	wall1.InitWall(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.f, WINDOW_H * 0.5f), sf::Vector2f(WINDOW_W * 0.3f, WINDOW_H * 0.01f));
-	wall2.InitWall(sf::Color::Blue, sf::Vector2f(WINDOW_W, WINDOW_H * 0.5f), sf::Vector2f(WINDOW_W * 0.3f, WINDOW_H * 0.01f));
+	wall1.InitWall(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.f, WINDOW_H * 0.5f), sf::Vector2f(WINDOW_W * 0.2f, WINDOW_H * 0.01f));
+	wall2.InitWall(sf::Color::Blue, sf::Vector2f(WINDOW_W, WINDOW_H * 0.5f), sf::Vector2f(WINDOW_W * 0.2f, WINDOW_H * 0.01f));
 	wall3.InitWall(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.7f, WINDOW_H * 0.7f - ((WINDOW_H * 0.15f) / 2)), sf::Vector2f(WINDOW_W * 0.02f, WINDOW_H * 0.15f));
-	wall4.InitWall(sf::Color::Blue, sf::Vector2f(WINDOW_W * 0.3f, WINDOW_H * 0.3f + ((WINDOW_H * 0.15f)/2)), sf::Vector2f(WINDOW_W * 0.02f, WINDOW_H * 0.15f));
-	wallSafe1.InitWall(sf::Color::White, sf::Vector2f(WINDOW_W * 0.85f, WINDOW_H * 0.806f), sf::Vector2f(WINDOW_W * 0.40f, WINDOW_H * 0.005f));
-	wallSafe2.InitWall(sf::Color::White, sf::Vector2f(WINDOW_W * 0.15f, WINDOW_H * 0.806f), sf::Vector2f(WINDOW_W * 0.40f, WINDOW_H * 0.005f));
-	wallSafe3.InitWall(sf::Color::White, sf::Vector2f(WINDOW_W * 0.15f, WINDOW_H * 0.194f), sf::Vector2f(WINDOW_W * 0.40f, WINDOW_H * 0.005f));
-	wallSafe4.InitWall(sf::Color::White, sf::Vector2f(WINDOW_W * 0.85f, WINDOW_H * 0.194f), sf::Vector2f(WINDOW_W * 0.40f, WINDOW_H * 0.005f));
+	wall4.InitWall(sf::Color::Blue, sf::Vector2f(WINDOW_W * 0.3f, WINDOW_H * 0.3f + ((WINDOW_H * 0.15f) / 2)), sf::Vector2f(WINDOW_W * 0.02f, WINDOW_H * 0.15f));
+	wallSafe1.InitWall(sf::Color::White, sf::Vector2f(WINDOW_W * 0.85f, WINDOW_H * 0.81f), sf::Vector2f(WINDOW_W * 0.40f, WINDOW_H * 0.005f));
+	wallSafe2.InitWall(sf::Color::White, sf::Vector2f(WINDOW_W * 0.15f, WINDOW_H * 0.81f), sf::Vector2f(WINDOW_W * 0.40f, WINDOW_H * 0.005f));
+	wallSafe3.InitWall(sf::Color::White, sf::Vector2f(WINDOW_W * 0.15f, WINDOW_H * 0.19f), sf::Vector2f(WINDOW_W * 0.40f, WINDOW_H * 0.005f));
+	wallSafe4.InitWall(sf::Color::White, sf::Vector2f(WINDOW_W * 0.85f, WINDOW_H * 0.19f), sf::Vector2f(WINDOW_W * 0.40f, WINDOW_H * 0.005f));
 	wallBorder1.InitWall(sf::Color::Magenta, sf::Vector2f(0 - 5, WINDOW_H * 0.5f), sf::Vector2f(-10, WINDOW_H));
 	wallBorder2.InitWall(sf::Color::Magenta, sf::Vector2f(WINDOW_W + 5, WINDOW_H * 0.5f), sf::Vector2f(10, WINDOW_H));
 
