@@ -24,6 +24,7 @@ int main()
 
 	// Début de la boucle de jeu
 	GameManager manager;
+	srand(time(NULL));
 	manager.InitUI();
 	bool j1Won = false, j2Won = false;
 	bool isStarting = false;
@@ -40,10 +41,10 @@ int main()
 	player1.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.9f), true);
 	player2.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.1f), false);
 
-	bounce1.InitBounce(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.3f, WINDOW_H * 0.7f), 30);
-	bounce2.InitBounce(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.7f, WINDOW_H * 0.7f), 30);
-	bounce3.InitBounce(sf::Color::Blue, sf::Vector2f(WINDOW_W * 0.3f, WINDOW_H * 0.3f), 30);
-	bounce4.InitBounce(sf::Color::Blue, sf::Vector2f(WINDOW_W * 0.7f, WINDOW_H * 0.3f), 30);
+	bounce1.InitBounce(sf::Color::Red, sf::Vector2f(rand() % WINDOW_W, rand() % WINDOW_H * 0.6f + WINDOW_H * 0.2f), 20);
+	bounce2.InitBounce(sf::Color::Red, sf::Vector2f(rand() % WINDOW_W, rand() % WINDOW_H * 0.6f + WINDOW_H * 0.2f), 20);
+	bounce3.InitBounce(sf::Color::Blue, sf::Vector2f(rand() % WINDOW_W, rand() % WINDOW_H * 0.6f + WINDOW_H * 0.2f), 20);
+	bounce4.InitBounce(sf::Color::Blue, sf::Vector2f(rand() % WINDOW_W, rand() % WINDOW_H * 0.6f + WINDOW_H * 0.2f), 20);
 
 
 	wall1.InitWall(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.f, WINDOW_H * 0.5f), sf::Vector2f(WINDOW_W * 0.3f, WINDOW_H * 0.01f));
