@@ -53,6 +53,7 @@ int main()
 	//listPlayer.push_front(player);
 	while (window.isOpen())
 	{
+
 		// Gérer les événéments survenus depuis le dernier tour de boucle
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -90,9 +91,9 @@ int main()
 void Initialisation() {
 	manager.InitUI();
 
-	player11.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.9f), WINDOW_W / 5, true);
+	player11.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.9f), WINDOW_W / 8, true);
 	player12.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.8f), WINDOW_W / 3, true);
-	player21.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.1f), WINDOW_W / 5, false);
+	player21.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.1f), WINDOW_W / 8, false);
 	player22.Init(sf::Vector2f(WINDOW_W * 0.5f, WINDOW_H * 0.2f), WINDOW_W / 3, false);
 
 	bounce1.InitBounce(sf::Color::Red, sf::Vector2f(WINDOW_W * 0.3f, WINDOW_H * 0.7f), 30);
@@ -166,6 +167,10 @@ void Logic(float deltaTime) {
 		while (itB != balls.end())
 		{
 			(*(*itB)).UpdateBall(deltaTime);
+
+			std::cout << ball.ball.getPosition().x << "!" << std::endl;
+			std::cout << ball.speed.x << std::endl;
+
 			while (itBo != bounces.end())
 			{
 				(*(*itB)).BounceBall((*(*itBo)).Bouncing(Collision::CircleToCircle((*(*itB)).ball, (*(*itBo)).bouncer)), .5f, deltaTime);
@@ -176,6 +181,10 @@ void Logic(float deltaTime) {
 				(*(*itB)).BounceBall(Collision::CircleToOrientedRectangle((*(*itB)).ball, (*(*itO)).wall), .5f, deltaTime);
 				itO++;
 			}
+
+			std::cout << ball.ball.getPosition().x << std::endl;
+			std::cout << ball.speed.x << std::endl;
+
 			while (itF != flippers.end()) {
 				Collision::CollisionInfo col = Collision::CircleToOrientedRectangle((*(*itB)).ball, (*(*itF)).flipperShape);
 				if (col.isColliding) {
@@ -191,8 +200,7 @@ void Logic(float deltaTime) {
 					}
 					if (!ball.wasHit)
 					{
-						float mul = (*(*itF)).getLinearSpeed((*(*itB)).ball.getPosition()) / 20.f;
-						std::cout << mul << std::endl;
+						float mul = abs((*(*itF)).getLinearSpeed((*(*itB)).ball.getPosition()) / 20.f);
 						(*(*itB)).BounceBall(col, mul, deltaTime);
 					}
 					else

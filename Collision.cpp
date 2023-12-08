@@ -12,12 +12,12 @@ CollisionInfo Collision::CircleToCircle(sf::CircleShape circle1, sf::CircleShape
 		info.normal= sf::Vector2f(circle1.getPosition().x - circle2.getPosition().x, circle1.getPosition().y - circle2.getPosition().y);
 		info.normal = info.normal / sqrt(info.normal.x * info.normal.x + info.normal.y * info.normal.y); // permet au vecteur d'indiquer une direction et une intensité 1
 		info.penetration = circle1.getRadius() + circle2.getRadius() - m;
-		std::cout << info.penetration << "\n";
+		//std::cout << info.penetration << "\n";
 		return info;
 	}
 
 	info.isColliding = false;
-	info.normal = sf::Vector2f(0, 0);
+	info.normal = sf::Vector2f(1, 0);
 	info.penetration = 0;
 	return info;
 }
@@ -34,9 +34,6 @@ CollisionInfo Collision::CircleToRectFrames(sf::CircleShape circle, sf::Vector2f
 CollisionInfo Collision::CircleToRectangle(sf::CircleShape circle, sf::RectangleShape rectangle)
 {
 	CollisionInfo info;
-	info.isColliding = false;
-	info.normal = { 0,0 };
-	info.penetration = 0;
 
 	float r = circle.getRadius();
 	circle.setOrigin(r, r);
@@ -64,10 +61,14 @@ CollisionInfo Collision::CircleToRectangle(sf::CircleShape circle, sf::Rectangle
 	//std::cout << circlePos.x << " " << test.x << "\n";
 
 	if (distance <= r) {
-		dist = dist / distance;
+		if (distance != 0) {
+			dist = dist / distance;
+		}
+		else dist = sf::Vector2f(1, 0);
 		info.normal = dist;
 		//std::cout << "Collision ! ! !\n";
 		info.penetration = r - distance;
+		std::cout << info.penetration << std::endl;
 		info.isColliding = true;
 	}
 	return info;

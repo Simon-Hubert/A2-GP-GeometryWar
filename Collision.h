@@ -6,9 +6,9 @@ namespace Collision
 {
 	struct CollisionInfo
 	{
-		bool isColliding;
-		sf::Vector2f normal;
-		float penetration;
+		bool isColliding = false;
+		sf::Vector2f normal = sf::Vector2f(1,0);
+		float penetration = 0;
 	};
 	CollisionInfo CircleToCircle(sf::CircleShape circle1, sf::CircleShape circle2);
 	CollisionInfo CircleToRectFrames(sf::CircleShape circle, sf::Vector2f pos, sf::RectangleShape rect);
