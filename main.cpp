@@ -21,6 +21,7 @@ bool isStarting = false;
 bool downGravity = true;
 Menu menu;
 sf::Clock frameClock;
+sf::Clock collideClock;
 Item item;
 bool isItemActive = false;
 Ball ball;
@@ -49,6 +50,7 @@ int main()
 
 	// Début de la boucle de jeu
 	Initialisation();
+	collideClock.restart();
 	//std::list<Player> listPlayer;
 	//listPlayer.push_front(player);
 	while (window.isOpen())
@@ -74,6 +76,7 @@ int main()
 
 		// Logique
 		Logic(deltaTime);
+		std::cout << collideClock.getElapsedTime().asSeconds() << std::endl;
 
 		// Affichage
 		// Remise au noir de toute la fenêtre
@@ -167,24 +170,31 @@ void Logic(float deltaTime) {
 		while (itB != balls.end())
 		{
 			(*(*itB)).UpdateBall(deltaTime);
-
-			std::cout << ball.ball.getPosition().x << "!" << std::endl;
-			std::cout << ball.speed.x << std::endl;
-
 			while (itBo != bounces.end())
 			{
-				(*(*itB)).BounceBall((*(*itBo)).Bouncing(Collision::CircleToCircle((*(*itB)).ball, (*(*itBo)).bouncer)), .5f, deltaTime);
+				Collision::CollisionInfo col = Collision::CircleToCircle((*(*itB)).ball, (*(*itBo)).bouncer);
+				if (col.isColliding)
+				{
+					if ((*(*itB)).wasHit == false) {
+						(*(*itB)).BounceBall((*(*itBo)).Bouncing(col), .5f, deltaTime);
+						collideClock.restart();
+					}
+					(*(*itB)).wasHit = true;
+				}
 				itBo++;
 			}
 			while (itO != obstacles.end())
 			{
-				(*(*itB)).BounceBall(Collision::CircleToOrientedRectangle((*(*itB)).ball, (*(*itO)).wall), .5f, deltaTime);
+				Collision::CollisionInfo col = Collision::CircleToOrientedRectangle((*(*itB)).ball, (*(*itO)).wall);
+				if (col.isColliding) {
+					if ((*(*itB)).wasHit == false) {
+						(*(*itB)).BounceBall(col, .5f, deltaTime);
+						collideClock.restart();
+					}
+					(*(*itB)).wasHit = true;
+				}
 				itO++;
 			}
-
-			std::cout << ball.ball.getPosition().x << std::endl;
-			std::cout << ball.speed.x << std::endl;
-
 			while (itF != flippers.end()) {
 				Collision::CollisionInfo col = Collision::CircleToOrientedRectangle((*(*itB)).ball, (*(*itF)).flipperShape);
 				if (col.isColliding) {
@@ -198,7 +208,7 @@ void Logic(float deltaTime) {
 						(*(*itB)).gravity *= -1;
 						std::cout << "gravity changed2" << "\n";
 					}
-					if (!ball.wasHit)
+					if (!(*(*itB)).wasHit)
 					{
 						float mul = abs((*(*itF)).getLinearSpeed((*(*itB)).ball.getPosition()) / 20.f);
 						(*(*itB)).BounceBall(col, mul, deltaTime);
@@ -207,12 +217,13 @@ void Logic(float deltaTime) {
 					{
 						(*(*itB)).BounceBall(col, 1, deltaTime);
 					}
-					ball.wasHit = true;
+					(*(*itB)).wasHit = true;
+					collideClock.restart();
 				}
 
 				itF++;
 			}
-			ball.wasHit = false;
+			(*(*itB)).wasHit = false;
 			(*(*itB)).MoveBall(deltaTime);
 			itB++;
 		}

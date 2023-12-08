@@ -50,7 +50,7 @@ float Flipper::getLinearSpeed(sf::Vector2f point)
 	float angle = flipperShape.getRotation();
 	float testAngle = angle > 180 ? angle - 360 : angle;
 	if (testAngle == maxAngle || testAngle == baseAngle) {
-		return 0;
+		return 1;
 	}
 	sf::Vector2f flipPos = flipperShape.getPosition();
 	sf::Vector2f flipVect = sf::Vector2f(cos(testAngle * 6.28318 / 360), sin(testAngle * 6.28318 / 360));
