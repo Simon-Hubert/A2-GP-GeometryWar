@@ -2,6 +2,8 @@
 #include <SFML/Window.hpp>
 #include "Collision.h"
 #include <stdlib.h>
+#include <thread>
+#include <chrono>
 using namespace Collision;
 #pragma once
 class Bounce
@@ -15,5 +17,6 @@ class Bounce
 	CollisionInfo Bouncing(Collision::CollisionInfo info, float deltatime);
 	void DrawBounce(sf::RenderWindow& window);
 	void Animate(float deltatime);
+	void UpdateAnm(float deltatime);
 };
 
