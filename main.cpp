@@ -139,7 +139,6 @@ int main()
 			std::list<Bounce*>::iterator itBo = bounces.begin();
 			std::list<Obstacle*>::iterator itO = obstacles.begin();
 			std::list<Flipper*>::iterator itF = flippers.begin();
-			//std::cout << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.x << Collision::CircleToCircle(ball.ball, bounce.bouncer).normal.y << std::endl;
 			item.CallPowerUp(isItemActive, deltaTime);
 			item.DestroyItem(isItemActive, deltaTime, Collision::CircleToCircle(ball.ball, item.item).isColliding, ball);
 

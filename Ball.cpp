@@ -8,14 +8,12 @@ void Ball::InitBall()
 	ball.setPosition(WINDOW_W/2, WINDOW_H/2);
 	ball.setRadius(radius);
 	ball.setOrigin(radius, radius);
-	//speed.y = 1;
 }
 
 void Ball::MoveBall(float deltaTime)
 {
 
 	pos = ball.getPosition();
-	//speed.y= speed.y+ (deltaTime * gravity);
 	pos.y = pos.y + (speed.y * deltaTime * 2);
 	pos.x = pos.x + (speed.x * deltaTime * 2);
 	
@@ -36,13 +34,9 @@ void Ball::BounceBall(Collision::CollisionInfo info, float mulV, float deltaTime
 {
 	if (info.isColliding)
 	{
-		//speed.y = speed.y - (deltaTime * gravity * 10.f);
 		float magSpeed = sqrt(speed.x * speed.x + speed.y * speed.y);
 		float minSpeed = 150;
 		float maxSpeed = 500;
-		//magSpeed = magSpeed * mulV > maxSpeed ? maxSpeed : magSpeed * mulV;
-		//if (magSpeed * mulV < minSpeed) magSpeed = minSpeed;
-		//else magSpeed *= mulV;
 		if (magSpeed * mulV > maxSpeed || magSpeed * mulV < minSpeed)
 		{
 			magSpeed = magSpeed * mulV > maxSpeed ? maxSpeed : minSpeed;
@@ -66,11 +60,8 @@ void Ball::BounceBall(Collision::CollisionInfo info, float mulV, float deltaTime
 			speed.x = -magSpeed * cos(angle);
 			speed.y = magSpeed * -sin(angle);
 		}
-		//speed = info.normal * magSpeed;
-		//sf::Vector2f dir = sf::Vector2f(-cos(angle), sin(angle));
 		pos = pos + info.penetration * info.normal;
 		ball.setPosition(pos);
-		//std::cout << info.normal.x << " "<< info.normal.y << "\n";
 	}
 }
 
